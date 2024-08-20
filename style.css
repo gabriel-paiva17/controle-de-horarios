@@ -10,5 +10,15 @@
     top: 375px;
     font-size: 100px; /* Aumenta o tamanho do texto */
     font-family: 'Digital7';
+    color: red ;
+    background-color: black;
+    padding: 20px;
+    width: 350px; /* Largura fixa */
+    height: 150px; /* Altura fixa */
+    text-align: center; /* Centraliza o texto verticalmente */
+    line-height: 105px; /* Alinha o texto verticalmente */
+    box-sizing: border-box; /* Inclui o padding na largura/altura */
+    border: 5px solid grey;
+    border-radius: 25px;
     
 }
