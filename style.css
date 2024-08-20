@@ -3,23 +3,34 @@
     src: url('font/digital-7.ttf') format('truetype');
 }
 
-#currentTime {
+.shiftController {
+
     position: fixed;
     left: 50%;
-    transform: translate(-50%);
-    top: 375px;
-    font-size: 100px; /* Aumenta o tamanho do texto */
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid grey;
+
+
+}
+
+#currentTime {
+
+  
+    font-size: 150px; /* Aumenta o tamanho do texto */
     font-family: 'Digital7';
     color: red ;
     background-color: black;
     padding: 20px;
-    width: 350px; /* Largura fixa */
-    height: 150px; /* Altura fixa */
+    width: 500px; /* Largura fixa */
+    height: 200px; /* Altura fixa */
     text-align: center; /* Centraliza o texto verticalmente */
-    line-height: 105px; /* Alinha o texto verticalmente */
+    /* line-height: px;  Alinha o texto verticalmente */
     box-sizing: border-box; /* Inclui o padding na largura/altura */
     border: 5px solid grey;
     border-radius: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     
 }
 
@@ -38,6 +49,8 @@ button {
     font-size: 17px;
     border-radius: 500px;
     overflow: hidden;
+    width: 205px;
+    height: 50px;
    }
    
    button span {
@@ -70,8 +83,9 @@ button {
    }
 
    #shiftButton {
+    margin-left: 30px;
     background: #66ff66;
-    color: ghostwhite;
+    color: #66ff66;
    }
 
    #shiftButton:hover span {
@@ -82,3 +96,22 @@ button {
     background: #000;
 
    }
+
+   #breakButton { 
+
+    left: 10px;
+    background: lightblue;
+    color: lightblue;
+
+   }
+
+   #breakButton:hover span {
+    color: black;
+   }
+
+   #breakButton::before {
+    background: black;
+
+   }
+
+
