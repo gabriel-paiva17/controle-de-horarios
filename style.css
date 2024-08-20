@@ -1,0 +1,7 @@
+#currentTime {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    top: 375px;
+    font-size: 100px; /* Aumenta o tamanho do texto */
+}
