@@ -10,6 +10,10 @@ function updateTime() {
 
 setInterval(updateTime);
 
+const typeOfState = document.getElementById('typeOfState');
+const notWorking = "N/A"
+const working = "Turno em andamento"
+
 let shiftActive = false;  // Estado do turno
 let breakActive = false;  // Estado do intervalo
 
@@ -26,6 +30,9 @@ function toggleShift() {
     shiftActive = !shiftActive;
 
     if (shiftActive) {
+
+        typeOfState.textContent = working;
+
         shiftButton.querySelector('span').textContent = "Fim do Turno";
         shiftButton.style.background = "#ff6666";  // Muda a cor do botão para indicar que está em andamento
         shiftButton.style.color = "#ff6666";
@@ -37,6 +44,9 @@ function toggleShift() {
         breakButton.style.color = "lightblue"
         
     } else {
+
+        typeOfState.textContent = notWorking;
+
         shiftButton.querySelector('span').textContent = "Iniciar Turno";
         shiftButton.style.background = "#66ff66";  // Volta para a cor original
         shiftButton.style.color = "#66ff66";
@@ -57,10 +67,16 @@ function toggleBreak() {
     breakActive = !breakActive;
 
     if (breakActive) {
+
+        typeOfState.textContent = "Intervalo em andamento";
+
         breakButton.querySelector('span').textContent = "Fim do Intervalo";
         breakButton.style.background = "#ff6666";  // Muda a cor do botão para indicar que está em andamento
         breakButton.style.color = "#ff6666";
     } else {
+
+        typeOfState.textContent = working;
+
         breakButton.querySelector('span').textContent = "Iniciar Intervalo";
         breakButton.style.background = "lightblue";  // Volta para a cor original
         breakButton.style.color = "lightblue"
