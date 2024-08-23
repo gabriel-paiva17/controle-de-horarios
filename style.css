@@ -11,6 +11,13 @@
     transform: translate(-50%, -50%);
     border: 5px solid grey;
 
+}
+
+.currentState {
+
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
 
 }
 
@@ -18,7 +25,6 @@
 
 
     font-family: sans-serif;
-    margin-left: 150px;
     display: inline;
 
 
@@ -40,14 +46,14 @@
     color: red ;
     background-color: black;
     padding: 20px;
-    width: 500px; /* Largura fixa */
+    width: 550px; /* Largura fixa */
     height: 200px; /* Altura fixa */
     text-align: center; /* Centraliza o texto verticalmente */
     /* line-height: px;  Alinha o texto verticalmente */
     box-sizing: border-box; /* Inclui o padding na largura/altura */
     border: 5px solid grey;
     border-radius: 25px;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 30px;
     
 }
@@ -101,7 +107,7 @@ button {
    }
 
    #shiftButton {
-    margin-left: 30px;
+    margin-left: 55px;
     background: #66ff66;
     color: #66ff66;
    }
