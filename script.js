@@ -35,6 +35,8 @@ let breakActive = false;  // Estado do intervalo
 const shiftButton = document.getElementById('shiftButton');
 const breakButton = document.getElementById('breakButton');
 
+shiftData = {}
+
 // Função para alternar o estado do turno
 function toggleShift() {
     if (shiftActive && breakActive) {
@@ -47,6 +49,7 @@ function toggleShift() {
     if (shiftActive) {
 
         typeOfState.textContent = working;
+        shiftData.startDate = new Date().toISOString();
 
         shiftButton.querySelector('span').textContent = "Fim do Turno";
         shiftButton.style.background = "#ff6666";  // Muda a cor do botão para indicar que está em andamento
@@ -56,11 +59,20 @@ function toggleShift() {
         breakButton.disabled = false;  // Ativa o botão de intervalo
         breakButton.querySelector('span').textContent = "Iniciar Intervalo";
         breakButton.style.background = "lightblue";  // Volta para a cor original
-        breakButton.style.color = "lightblue"
+        breakButton.style.color = "lightblue";
         
     } else {
 
         typeOfState.textContent = notWorking;
+        shiftData.endDate = new Date().toISOString();
+
+        let shifts = JSON.parse(localStorage.getItem('shifts')) || [];
+        shifts.push(shiftData);
+
+        localStorage.setItem('shifts', JSON.stringify(shifts));
+
+        console.log(shifts);
+        shiftData = {};
 
         shiftButton.querySelector('span').textContent = "Iniciar Turno";
         shiftButton.style.background = "#66ff66";  // Volta para a cor original
@@ -84,6 +96,7 @@ function toggleBreak() {
     if (breakActive) {
 
         typeOfState.textContent = "Intervalo em andamento";
+        shiftData.breakStartDate =  new Date().toISOString();
 
         breakButton.querySelector('span').textContent = "Fim do Intervalo";
         breakButton.style.background = "#ff6666";  // Muda a cor do botão para indicar que está em andamento
@@ -91,6 +104,7 @@ function toggleBreak() {
     } else {
 
         typeOfState.textContent = working;
+        shiftData.breakEndDate =  new Date().toISOString();
 
         breakButton.querySelector('span').textContent = "Iniciar Intervalo";
         breakButton.style.background = "lightblue";  // Volta para a cor original
