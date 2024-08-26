@@ -3,7 +3,11 @@ let currentDateElement = document.getElementById('currentDate')
 function updateDate() {
 
     const date = new Date();
-    currentDateElement.textContent = date.toLocaleDateString('pt-br');
+
+    const weekday = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"]
+
+
+    currentDateElement.textContent = weekday[date.getDay()] + " - " + date.toLocaleDateString('pt-br');
 
 }
 
