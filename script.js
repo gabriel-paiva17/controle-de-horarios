@@ -1,3 +1,14 @@
+let currentDateElement = document.getElementById('currentDate')
+
+function updateDate() {
+
+    const date = new Date();
+    currentDateElement.textContent = date.toLocaleDateString('pt-br');
+
+}
+
+setInterval(updateDate);
+
 let currentTimeElement = document.getElementById('currentTime');
 
 function updateTime() {

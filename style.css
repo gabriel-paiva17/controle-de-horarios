@@ -3,6 +3,16 @@
     src: url('font/digital-7.ttf') format('truetype');
 }
 
+#currentDate {
+
+    position: fixed;
+    left: 50%;
+    top: -75px;
+    transform: translate(-50%);
+    font-family: sans-serif;
+
+}
+
 .shiftController {
 
     position: fixed;
