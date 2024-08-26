@@ -34,6 +34,8 @@ let breakActive = false;  // Estado do intervalo
 
 const shiftButton = document.getElementById('shiftButton');
 const breakButton = document.getElementById('breakButton');
+const startTimeDialog = document.getElementById("startTimeDialog");
+const useCurrentTime = document.getElementById("useCurrentTime")
 
 shiftData = {}
 
@@ -49,7 +51,8 @@ function toggleShift() {
     if (shiftActive) {
 
         typeOfState.textContent = working;
-        shiftData.startDate = new Date().toISOString();
+        
+        document.getElementById("startTimeDialog").showModal();
 
         shiftButton.querySelector('span').textContent = "Fim do Turno";
         shiftButton.style.background = "#ff6666";  // Muda a cor do botão para indicar que está em andamento
@@ -112,9 +115,16 @@ function toggleBreak() {
     }
 }
 
+function shiftCurrentTime () {
+
+    shiftData.startDate = new Date().toISOString();
+
+}
+
 // Associa as funções aos botões
 shiftButton.addEventListener('click', toggleShift);
 breakButton.addEventListener('click', toggleBreak);
+useCurrentTime.addEventListener('click', shiftCurrentTime);
 
 // Inicialmente desativa o botão de intervalo
 breakButton.disabled = true;
