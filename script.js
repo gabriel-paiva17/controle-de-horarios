@@ -48,7 +48,7 @@ function canHaveABreakStyles() {
 
 }
 
-function startTurnStyles() {
+function startShiftStyles() {
 
     shiftButton.querySelector('span').textContent = "Fim do Turno";
     shiftButton.style.background = "#ff6666";  // Muda a cor do botão para indicar que está em andamento
@@ -60,7 +60,7 @@ function startTurnStyles() {
 
 }
 
-function endTurnStyles() {
+function endShiftStyles() {
 
     shiftButton.querySelector('span').textContent = "Iniciar Turno";
     shiftButton.style.background = "#66ff66";  // Volta para a cor original
@@ -94,37 +94,30 @@ function endBreakStyles() {
 
 }
 
-let currentShift = JSON.parse(localStorage.getItem('currentShift')) || {};
+let currentShift = JSON.parse(localStorage.getItem('currentShift')) || {breaks: []};
 let currentBreak = JSON.parse(localStorage.getItem('currentBreak')) || {};
 
-function IsObjectEmpty(obj) {
+function IsObjectActive(obj) {
 
-    if (Object.keys(obj).length === 0) {
-        return true
-    }
-
-    return false
+    return obj.startDate != null
 
 }
 
+if (IsObjectActive(currentBreak) && IsObjectActive(currentShift)) {
 
-if (!IsObjectEmpty(currentBreak) && !IsObjectEmpty(currentShift)) {
-
-    startTurnStyles();
+    startShiftStyles();
     startBreakStyles();
 
     breakActive = true;
     shiftActive = true;
 
-} else if (!IsObjectEmpty(currentShift)) {
+} else if (IsObjectActive(currentShift)) {
 
-    startTurnStyles();
+    startShiftStyles();
 
     shiftActive = true
 
 }
-
-shiftData = {}
 
 // Função para alternar o estado do turno
 function toggleShift() {
@@ -139,21 +132,23 @@ function toggleShift() {
         
         document.getElementById("startTimeDialog").showModal();
 
-        startTurnStyles();
+        startShiftStyles();
         
     } else {
 
-        shiftData.endDate = new Date().toISOString();
+        currentShift.endDate = new Date().toISOString();
 
         let shifts = JSON.parse(localStorage.getItem('shifts')) || [];
-        shifts.push(shiftData);
+        shifts.push(currentShift);
 
         localStorage.setItem('shifts', JSON.stringify(shifts));
+        
+        currentShift = {breaks:[]}
+        localStorage.removeItem('currentShift');
 
-        console.log(shifts);
-        shiftData = {};
+        endShiftStyles();
 
-       endTurnStyles();
+        console.log(shifts)
 
     }
 }
@@ -165,15 +160,19 @@ function toggleBreak() {
 
     if (breakActive) {
 
-       
-        shiftData.breakStartDate =  new Date().toISOString();
+        currentBreak.startDate = new Date().toISOString();
+        localStorage.setItem('currentBreak', JSON.stringify(currentBreak));
 
         startBreakStyles();
 
        
     } else {
 
-        shiftData.breakEndDate =  new Date().toISOString();
+        currentBreak.endDate = new Date().toISOString();
+        currentShift.breaks.push(currentBreak)
+
+        localStorage.removeItem('currentBreak');
+        localStorage.setItem('currentShift', JSON.stringify(currentShift));
 
         endBreakStyles();
        
@@ -182,7 +181,8 @@ function toggleBreak() {
 
 function startShiftCurrentTime () {
 
-    shiftData.startDate = new Date().toISOString();
+    currentShift.startDate = new Date().toISOString();
+    localStorage.setItem('currentShift', JSON.stringify(currentShift));
 
 }
 
