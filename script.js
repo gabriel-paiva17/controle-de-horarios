@@ -190,6 +190,3 @@ function startShiftCurrentTime () {
 shiftButton.addEventListener('click', toggleShift);
 breakButton.addEventListener('click', toggleBreak);
 useCurrentTime.addEventListener('click', startShiftCurrentTime);
-
-// Inicialmente desativa o botão de intervalo
-
