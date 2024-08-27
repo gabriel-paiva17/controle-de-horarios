@@ -180,7 +180,7 @@ function toggleBreak() {
     }
 }
 
-function shiftCurrentTime () {
+function startShiftCurrentTime () {
 
     shiftData.startDate = new Date().toISOString();
 
@@ -189,7 +189,7 @@ function shiftCurrentTime () {
 // Associa as funções aos botões
 shiftButton.addEventListener('click', toggleShift);
 breakButton.addEventListener('click', toggleBreak);
-useCurrentTime.addEventListener('click', shiftCurrentTime);
+useCurrentTime.addEventListener('click', startShiftCurrentTime);
 
 // Inicialmente desativa o botão de intervalo
 
