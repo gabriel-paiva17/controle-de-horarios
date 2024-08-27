@@ -94,6 +94,36 @@ function endBreakStyles() {
 
 }
 
+let currentShift = JSON.parse(localStorage.getItem('currentShift')) || {};
+let currentBreak = JSON.parse(localStorage.getItem('currentBreak')) || {};
+
+function IsObjectEmpty(obj) {
+
+    if (Object.keys(obj).length === 0) {
+        return true
+    }
+
+    return false
+
+}
+
+
+if (!IsObjectEmpty(currentBreak) && !IsObjectEmpty(currentShift)) {
+
+    startTurnStyles();
+    startBreakStyles();
+
+    breakActive = true;
+    shiftActive = true;
+
+} else if (!IsObjectEmpty(currentShift)) {
+
+    startTurnStyles();
+
+    shiftActive = true
+
+}
+
 shiftData = {}
 
 // Função para alternar o estado do turno
