@@ -35,7 +35,64 @@ let breakActive = false;  // Estado do intervalo
 const shiftButton = document.getElementById('shiftButton');
 const breakButton = document.getElementById('breakButton');
 const startTimeDialog = document.getElementById("startTimeDialog");
-const useCurrentTime = document.getElementById("useCurrentTime")
+const useCurrentTime = document.getElementById("useCurrentTime");
+
+breakButton.disabled = true;
+
+function canHaveABreakStyles() {
+
+    breakButton.disabled = false;  // Ativa o botão de intervalo
+    breakButton.querySelector('span').textContent = "Iniciar Intervalo";
+    breakButton.style.background = "lightblue";  // Volta para a cor original
+    breakButton.style.color = "lightblue";
+
+}
+
+function startTurnStyles() {
+
+    shiftButton.querySelector('span').textContent = "Fim do Turno";
+    shiftButton.style.background = "#ff6666";  // Muda a cor do botão para indicar que está em andamento
+    shiftButton.style.color = "#ff6666";
+
+    canHaveABreakStyles();
+
+    typeOfState.textContent = working;
+
+}
+
+function endTurnStyles() {
+
+    shiftButton.querySelector('span').textContent = "Iniciar Turno";
+    shiftButton.style.background = "#66ff66";  // Volta para a cor original
+    shiftButton.style.color = "#66ff66";
+
+    breakButton.disabled = true;  // Desativa o botão de intervalo
+    
+    breakButton.querySelector('span').textContent = "Desativado";
+    breakButton.style.background = "grey";
+    breakButton.style.color = "black";
+
+    typeOfState.textContent = notWorking;
+
+}
+
+function startBreakStyles() {
+
+    breakButton.querySelector('span').textContent = "Fim do Intervalo";
+    breakButton.style.background = "#ff6666";  // Muda a cor do botão para indicar que está em andamento
+    breakButton.style.color = "#ff6666";
+
+    typeOfState.textContent = "Intervalo em andamento";
+
+}
+
+function endBreakStyles() {
+
+    canHaveABreakStyles();
+
+    typeOfState.textContent = working;
+
+}
 
 shiftData = {}
 
@@ -49,24 +106,13 @@ function toggleShift() {
     shiftActive = !shiftActive;
 
     if (shiftActive) {
-
-        typeOfState.textContent = working;
         
         document.getElementById("startTimeDialog").showModal();
 
-        shiftButton.querySelector('span').textContent = "Fim do Turno";
-        shiftButton.style.background = "#ff6666";  // Muda a cor do botão para indicar que está em andamento
-        shiftButton.style.color = "#ff6666";
-
-        
-        breakButton.disabled = false;  // Ativa o botão de intervalo
-        breakButton.querySelector('span').textContent = "Iniciar Intervalo";
-        breakButton.style.background = "lightblue";  // Volta para a cor original
-        breakButton.style.color = "lightblue";
+        startTurnStyles();
         
     } else {
 
-        typeOfState.textContent = notWorking;
         shiftData.endDate = new Date().toISOString();
 
         let shifts = JSON.parse(localStorage.getItem('shifts')) || [];
@@ -77,16 +123,7 @@ function toggleShift() {
         console.log(shifts);
         shiftData = {};
 
-        shiftButton.querySelector('span').textContent = "Iniciar Turno";
-        shiftButton.style.background = "#66ff66";  // Volta para a cor original
-        shiftButton.style.color = "#66ff66";
-
-        breakButton.disabled = true;  // Desativa o botão de intervalo
-        
-        breakButton.querySelector('span').textContent = "Desativado";
-        breakButton.style.background = "grey";
-        breakButton.style.color = "black";
-
+       endTurnStyles();
 
     }
 }
@@ -98,20 +135,18 @@ function toggleBreak() {
 
     if (breakActive) {
 
-        typeOfState.textContent = "Intervalo em andamento";
+       
         shiftData.breakStartDate =  new Date().toISOString();
 
-        breakButton.querySelector('span').textContent = "Fim do Intervalo";
-        breakButton.style.background = "#ff6666";  // Muda a cor do botão para indicar que está em andamento
-        breakButton.style.color = "#ff6666";
+        startBreakStyles();
+
+       
     } else {
 
-        typeOfState.textContent = working;
         shiftData.breakEndDate =  new Date().toISOString();
 
-        breakButton.querySelector('span').textContent = "Iniciar Intervalo";
-        breakButton.style.background = "lightblue";  // Volta para a cor original
-        breakButton.style.color = "lightblue"
+        endBreakStyles();
+       
     }
 }
 
@@ -127,4 +162,4 @@ breakButton.addEventListener('click', toggleBreak);
 useCurrentTime.addEventListener('click', shiftCurrentTime);
 
 // Inicialmente desativa o botão de intervalo
-breakButton.disabled = true;
+
