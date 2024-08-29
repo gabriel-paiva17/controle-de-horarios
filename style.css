@@ -42,8 +42,7 @@
 
 }
 
-#titleState, #typeOfState {
-
+#titleState, #typeOfState, #startDateQuestion {
 
     font-family: sans-serif;
     display: inline;
@@ -168,3 +167,11 @@ button {
    }
 
 
+dialog {
+
+    
+    border: 5px groove black;
+    border-radius: 25px;
+    background-color: lightgrey;
+    
+}
