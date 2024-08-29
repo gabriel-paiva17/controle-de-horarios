@@ -23,10 +23,12 @@
 
     <dialog id="startDateDialog">
         <form method="dialog">
-            <p id="startDateQuestion">Você quer usar um horário anterior ao atual?</p>
-            <menu>
-                <button id="usePreviousTime">Usar horário anterior</button>
-                <button id="useCurrentTime">Usar horário atual</button>
+            <div id="dateQuestionBlock">
+                <p id="startDateQuestion">Você quer usar um horário anterior ou atual?</p>
+            </div>
+            <menu id="dateQuestionMenu">
+                <button id="usePreviousTime" class="dateQuestionButton">Anterior</button>
+                <button id="useCurrentTime" class="dateQuestionButton">Atual</button>
             </menu>
         </form>
     </dialog>

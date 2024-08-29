@@ -173,5 +173,26 @@ dialog {
     border: 5px groove black;
     border-radius: 25px;
     background-color: lightgrey;
+    padding: auto;
     
+}
+
+#dateQuestionBlock {
+
+    text-align: center;
+    padding-top: 20px;
+
+}
+
+.dateQuestionButton {
+
+    left: -22px;
+    width: 180px;
+
+}
+
+#useCurrentTime {
+
+    left: -15px;
+
 }
