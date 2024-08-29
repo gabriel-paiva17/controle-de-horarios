@@ -34,7 +34,7 @@ let breakActive = false;  // Estado do intervalo
 
 const shiftButton = document.getElementById('shiftButton');
 const breakButton = document.getElementById('breakButton');
-const startTimeDialog = document.getElementById("startTimeDialog");
+const startDateDialog = document.getElementById("startDateDialog");
 const useCurrentTime = document.getElementById("useCurrentTime");
 
 breakButton.disabled = true;
@@ -130,9 +130,8 @@ function toggleShift() {
 
     if (shiftActive) {
         
-        document.getElementById("startTimeDialog").showModal();
+        startDateDialog.showModal();
 
-        startShiftStyles();
         
     } else {
 
@@ -183,6 +182,8 @@ function startShiftCurrentTime () {
 
     currentShift.startDate = new Date().toISOString();
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
+    
+    startShiftStyles();
 
 }
 
