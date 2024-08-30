@@ -118,9 +118,11 @@ button {
    }
 
    #shiftButton {
+
     margin-left: 55px;
     background: #66ff66;
     color: #66ff66;
+    
    }
 
    #shiftButton:hover span {
@@ -194,5 +196,32 @@ dialog {
 #useCurrentTime {
 
     left: -15px;
+    background: #66ff66;
+    color: #66ff66;
 
 }
+
+#useCurrentTime:hover span {
+    color: black;
+}
+
+#useCurrentTime::before {
+    background: #000;
+
+}
+
+#usePreviousTime { 
+    
+    background: lightblue;
+    color: lightblue;
+
+   }
+
+   #usePreviousTime:hover span {
+    color: black;
+   }
+
+   #usePreviousTime::before {
+    background: black;
+
+   }
