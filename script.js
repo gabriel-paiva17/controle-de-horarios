@@ -36,6 +36,8 @@ const shiftButton = document.getElementById('shiftButton');
 const breakButton = document.getElementById('breakButton');
 const startDateDialog = document.getElementById("startDateDialog");
 const useCurrentTime = document.getElementById("useCurrentTime");
+const usePreviousTime = document.getElementById("usePreviousTime");
+const previousDateDialog = document.getElementById("previousDateDialog");
 
 breakButton.disabled = true;
 
@@ -187,7 +189,14 @@ function startShiftCurrentTime () {
 
 }
 
+function showPreviousTime() {
+
+    previousDateDialog.showModal();
+
+}
+
 // Associa as funções aos botões
 shiftButton.addEventListener('click', toggleShift);
 breakButton.addEventListener('click', toggleBreak);
 useCurrentTime.addEventListener('click', startShiftCurrentTime);
+usePreviousTime.addEventListener('click', showPreviousTime);
