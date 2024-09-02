@@ -247,16 +247,16 @@ dialog {
 
     left: -22px;
     width: 180px;
-
-   }
+}
 
    #usePreviousTime:hover span {
     color: black;
-   }
+}
 
-   #usePreviousTime::before {
+#usePreviousTime::before {
     background: black;
+}
 
-   }
+
 
    
