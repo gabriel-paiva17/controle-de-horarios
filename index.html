@@ -16,19 +16,20 @@
         </div>
         <div id="currentTime"></div>
         <div>
-            <button id="shiftButton"><span>Iniciar Turno</span></button>
-            <button id="breakButton"><span>Desativado</span></button>
+            <button id="shiftButton" class="styledButton"><span>Iniciar Turno</span></button>
+            <button id="breakButton" class="styledButton"><span>Desativado</span></button>
         </div>
     </div>
 
     <dialog id="startDateDialog">
         <form method="dialog">
+            <img src="icon\close-button.png" class="closeButton" id="closeStartDate"></img>
             <div id="dateQuestionBlock">
                 <p id="startDateQuestion">Você quer usar um horário anterior ou atual?</p>
             </div>
             <menu id="dateQuestionMenu">
-                <button id="usePreviousTime" class="dateQuestionButton"><span>Anterior</span></button>
-                <button id="useCurrentTime" class="dateQuestionButton"><span>Atual</span></button>
+                <button id="usePreviousTime" class="styledButton"><span>Anterior</span></button>
+                <button id="useCurrentTime" class="styledButton"><span>Atual</span></button>
             </menu>
         </form>
     </dialog>

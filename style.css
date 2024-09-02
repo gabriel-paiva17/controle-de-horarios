@@ -69,7 +69,7 @@
     
 }
 
-button {
+.styledButton {
     outline: none;
     cursor: pointer;
     border: none;
@@ -88,14 +88,14 @@ button {
     height: 50px;
    }
    
-   button span {
+   .styledButton span {
     position: relative;
     z-index: 10;
     transition: color 0.4s;
    }
 
-   button::before,
-   button::after {
+   .styledButton::before,
+   .styledButton::after {
     position: absolute;
     top: 0;
     left: 0;
@@ -104,7 +104,7 @@ button {
     z-index: 0;
    }
    
-   button::before {
+   .styledButton::before {
     content: "";
     background: #000;
     width: 120%;
@@ -113,7 +113,7 @@ button {
     transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
    }
    
-   button:hover::before {
+   .styledButton:hover::before {
     transform: translate3d(100%, 0, 0);
    }
 
@@ -182,6 +182,7 @@ dialog {
 #dateQuestionBlock {
 
     text-align: center;
+
     padding-top: 20px;
 
 }
@@ -193,11 +194,40 @@ dialog {
 
 }
 
+#closeStartDate {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+/* Estilização básica da imagem */
+.closeButton {
+    width: 20px;
+    height: 20px;
+    cursor: pointer; /* Muda o cursor para uma mãozinha ao passar sobre a imagem */
+    transition: transform 0.2s, opacity 0.2s; /* Suaviza a transição para os estados hover e active */
+}
+
+/* Efeito ao passar o mouse sobre a imagem */
+.closeButton:hover {
+    transform: scale(1.1); /* Aumenta levemente o tamanho da imagem */
+    opacity: 0.8; /* Deixa a imagem um pouco transparente */
+}
+
+/* Efeito ao clicar na imagem */
+.closeButton:active {
+    transform: scale(0.9); /* Reduz levemente o tamanho da imagem */
+    opacity: 0.6; /* Torna a imagem mais transparente */
+}
+
 #useCurrentTime {
 
     left: -15px;
     background: #66ff66;
     color: #66ff66;
+
+    left: -22px;
+    width: 180px;
 
 }
 
@@ -214,6 +244,9 @@ dialog {
     
     background: lightblue;
     color: lightblue;
+
+    left: -22px;
+    width: 180px;
 
    }
 

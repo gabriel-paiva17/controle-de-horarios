@@ -35,6 +35,7 @@ let breakActive = false;  // Estado do intervalo
 const shiftButton = document.getElementById('shiftButton');
 const breakButton = document.getElementById('breakButton');
 const startDateDialog = document.getElementById("startDateDialog");
+const closeStartDate = document.getElementById("closeStartDate"); 
 const useCurrentTime = document.getElementById("useCurrentTime");
 const usePreviousTime = document.getElementById("usePreviousTime");
 const previousDateDialog = document.getElementById("previousDateDialog");
@@ -198,5 +199,8 @@ function showPreviousTime() {
 // Associa as funções aos botões
 shiftButton.addEventListener('click', toggleShift);
 breakButton.addEventListener('click', toggleBreak);
+closeStartDate.addEventListener('click', () => {
+    startDateDialog.close();
+});
 useCurrentTime.addEventListener('click', startShiftCurrentTime);
 usePreviousTime.addEventListener('click', showPreviousTime);
