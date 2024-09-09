@@ -43,6 +43,11 @@ function getCurrentCoordinates() {
     return currentCoords;
 }
 
+function getBrasiliaDateTime() {
+    const options = { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    return new Intl.DateTimeFormat('pt-BR', options).format(new Date());
+}
+
 setInterval(updateTime);
 
 const typeOfState = document.getElementById('typeOfState');
@@ -157,7 +162,7 @@ function toggleShift() {
         
     } else {
 
-        currentShift.endDate = new Date().toISOString();
+        currentShift.endDate = getBrasiliaDateTime();
         currentShift.endLocation = getCurrentCoordinates();
 
         let shifts = JSON.parse(localStorage.getItem('shifts')) || [];
@@ -182,7 +187,7 @@ function toggleBreak() {
 
     if (breakActive) {
 
-        currentBreak.startDate = new Date().toISOString();
+        currentBreak.startDate = getBrasiliaDateTime();
         currentBreak.startLocation = getCurrentCoordinates();;
         localStorage.setItem('currentBreak', JSON.stringify(currentBreak));
 
@@ -191,7 +196,7 @@ function toggleBreak() {
        
     } else {
 
-        currentBreak.endDate = new Date().toISOString();
+        currentBreak.endDate = getBrasiliaDateTime();
         currentBreak.endLocation =  getCurrentCoordinates();
         currentShift.breaks.push(currentBreak)
 
@@ -205,7 +210,7 @@ function toggleBreak() {
 
 function startShiftCurrentTime () {
 
-    currentShift.startDate = new Date().toISOString();
+    currentShift.startDate = getBrasiliaDateTime();
     currentShift.startLocation = getCurrentCoordinates();
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
     
