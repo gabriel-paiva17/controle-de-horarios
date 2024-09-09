@@ -23,6 +23,26 @@ function updateTime() {
     currentTimeElement.textContent = `${hours}:${minutes}:${seconds}`;
 }
 
+let currentCoords = {}
+function getCurrentCoordinates() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                currentCoords = { latitude: position.coords.latitude, longitude: position.coords.longitude };
+            },
+            function (error) {
+                console.error("Erro ao obter coordenadas: ", error.message);
+                currentCoords = {}
+            }
+        );
+    } else {
+        console.error("Geolocalização não é suportada pelo navegador.");
+        currentCoords = {}
+    }
+
+    return currentCoords;
+}
+
 setInterval(updateTime);
 
 const typeOfState = document.getElementById('typeOfState');
@@ -134,11 +154,11 @@ function toggleShift() {
     if (shiftActive) {
         
         startDateDialog.showModal();
-
         
     } else {
 
         currentShift.endDate = new Date().toISOString();
+        currentShift.endLocation = getCurrentCoordinates();
 
         let shifts = JSON.parse(localStorage.getItem('shifts')) || [];
         shifts.push(currentShift);
@@ -163,6 +183,7 @@ function toggleBreak() {
     if (breakActive) {
 
         currentBreak.startDate = new Date().toISOString();
+        currentBreak.startLocation = getCurrentCoordinates();;
         localStorage.setItem('currentBreak', JSON.stringify(currentBreak));
 
         startBreakStyles();
@@ -171,6 +192,7 @@ function toggleBreak() {
     } else {
 
         currentBreak.endDate = new Date().toISOString();
+        currentBreak.endLocation =  getCurrentCoordinates();
         currentShift.breaks.push(currentBreak)
 
         localStorage.removeItem('currentBreak');
@@ -184,6 +206,7 @@ function toggleBreak() {
 function startShiftCurrentTime () {
 
     currentShift.startDate = new Date().toISOString();
+    currentShift.startLocation = getCurrentCoordinates();
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
     
     startShiftStyles();
