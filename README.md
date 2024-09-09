@@ -12,3 +12,5 @@ adicionar comportamento aos botoes de data anterior
 - verificar se a data realmente e anterior 
 
 toda vez que voce pega loc, um popup de permissao aparece
+
+resolver funcao assincrona usando promise
