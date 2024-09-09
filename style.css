@@ -194,7 +194,7 @@ dialog {
 
 }
 
-#closeStartDate {
+#closeStartDate, #closePreviousDate {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -247,6 +247,7 @@ dialog {
 
     left: -22px;
     width: 180px;
+
 }
 
    #usePreviousTime:hover span {
@@ -257,6 +258,49 @@ dialog {
     background: black;
 }
 
+#previousDateDialog {
+
+    width: 325px;
+    height: 125px;
+    text-align: center;
+
+}
+
+#insertDateQuestion {
+
+    font-family: sans-serif;
+
+}
+
+.selectDateBlock {
+
+    text-align: center;
+
+}
+
+#confirmSelectDate {
+
+    background: #66ff66;
+    color: #66ff66;
+
+    top: 10px;
+    padding-top: 10px;
+    height: 40px;
+    width: 160px;
+    display: block;
+    left: 50%;
+    transform: translate(-50%);
+
+}
 
 
-   
+#confirmSelectDate:hover span {
+    
+    color: black;
+
+}
+
+#confirmSelectDate::before {
+    background: #000;
+
+}

@@ -35,9 +35,12 @@
     </dialog>
 
     <dialog id="previousDateDialog">
-        <p>Insira a data do início do ponto</p>
-        <input type="datetime-local" id="startDateTime" required>
-        <button onclick="confirmarPonto()">Confirmar</button>
+        <p id="insertDateQuestion">Insira a data do início do ponto abaixo:</p>
+        <img src="icon\close-button.png" class="closeButton" id="closePreviousDate"></img>
+        <div class=selectDateBlock>
+            <input type="datetime-local" id="inputStartDate"></input>
+            <button class="styledButton" id="confirmSelectDate"><span>Confirmar</span></button>
+        </div>
     </dialog>
 
     <script src="script.js"></script>

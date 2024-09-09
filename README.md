@@ -4,7 +4,11 @@ sistema de controle de horários, feito como projeto final para programacao web 
 
 # BACKLOG
 
-- Datas registradas nos botoes estao diferentes do horario de brasilia
-- estilo p dialogo esta errado
-- somente horario atual funciona (fazer um para tempo anterior)
-- adicionar captura de dados de localização 
+estilo p caixa de selecionar data esta errado
+
+adicionar comportamento aos botoes de data anterior
+- fechar pagina
+- pegar input de data
+- verificar se a data realmente e anterior 
+
+toda vez que voce pega loc, um popup de permissao aparece
