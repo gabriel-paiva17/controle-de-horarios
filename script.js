@@ -23,6 +23,8 @@ function updateTime() {
     currentTimeElement.textContent = `${hours}:${minutes}:${seconds}`;
 }
 
+setInterval(updateTime);
+
 let currentCoords = {}
 function getCurrentCoordinates() {
     if (navigator.geolocation) {
@@ -47,8 +49,6 @@ function formatBrasiliaDateTime(date) {
     const options = { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
     return new Intl.DateTimeFormat('pt-BR', options).format(date);
 }
-
-setInterval(updateTime);
 
 const typeOfState = document.getElementById('typeOfState');
 const notWorking = "N/A"
@@ -157,9 +157,7 @@ function toggleShift() {
         return;
     }
 
-    shiftActive = !shiftActive;
-
-    if (shiftActive) {
+    if (!shiftActive) {
         
         startDateDialog.showModal();
         
@@ -177,6 +175,7 @@ function toggleShift() {
         localStorage.removeItem('currentShift');
 
         endShiftStyles();
+        shiftActive = !shiftActive;
 
         console.log(shifts)
 
@@ -218,6 +217,7 @@ function startShiftCurrentTime () {
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
     
     startShiftStyles();
+    shiftActive = !shiftActive;
 
 }
 
@@ -242,6 +242,7 @@ function startShiftPreviousTime() {
 
     previousDateDialog.close();
     startShiftStyles();
+    shiftActive = !shiftActive;
     
 } 
 
