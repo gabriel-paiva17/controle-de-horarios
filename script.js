@@ -43,9 +43,9 @@ function getCurrentCoordinates() {
     return currentCoords;
 }
 
-function getBrasiliaDateTime() {
+function formatBrasiliaDateTime(date) {
     const options = { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-    return new Intl.DateTimeFormat('pt-BR', options).format(new Date());
+    return new Intl.DateTimeFormat('pt-BR', options).format(date);
 }
 
 setInterval(updateTime);
@@ -64,7 +64,9 @@ const closeStartDate = document.getElementById("closeStartDate");
 const useCurrentTime = document.getElementById("useCurrentTime");
 const usePreviousTime = document.getElementById("usePreviousTime");
 const previousDateDialog = document.getElementById("previousDateDialog");
-const closePreviousDate =document.getElementById("closePreviousDate");
+const closePreviousDate = document.getElementById("closePreviousDate");
+const inputStartDate = document.getElementById("inputStartDate");
+const confirmSelectDate = document.getElementById('confirmSelectDate');
 
 breakButton.disabled = true;
 
@@ -163,7 +165,7 @@ function toggleShift() {
         
     } else {
 
-        currentShift.endDate = getBrasiliaDateTime();
+        currentShift.endDate = formatBrasiliaDateTime(new Date());
         currentShift.endLocation = getCurrentCoordinates();
 
         let shifts = JSON.parse(localStorage.getItem('shifts')) || [];
@@ -188,7 +190,7 @@ function toggleBreak() {
 
     if (breakActive) {
 
-        currentBreak.startDate = getBrasiliaDateTime();
+        currentBreak.startDate = formatBrasiliaDateTime(new Date());
         currentBreak.startLocation = getCurrentCoordinates();;
         localStorage.setItem('currentBreak', JSON.stringify(currentBreak));
 
@@ -197,7 +199,7 @@ function toggleBreak() {
        
     } else {
 
-        currentBreak.endDate = getBrasiliaDateTime();
+        currentBreak.endDate = formatBrasiliaDateTime(new Date());
         currentBreak.endLocation =  getCurrentCoordinates();
         currentShift.breaks.push(currentBreak)
 
@@ -211,13 +213,37 @@ function toggleBreak() {
 
 function startShiftCurrentTime () {
 
-    currentShift.startDate = getBrasiliaDateTime();
+    currentShift.startDate = formatBrasiliaDateTime(new Date());
     currentShift.startLocation = getCurrentCoordinates();
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
     
     startShiftStyles();
 
 }
+
+function startShiftPreviousTime() {
+
+    if (!inputStartDate.value) {
+        alert("Por favor, insira uma data.");
+        return;
+    }
+
+    let selectedDate = new Date(inputStartDate.value);
+    let currentDate = new Date();
+
+    if (selectedDate >= currentDate) {
+        alert("A data selecionada deve ser anterior à data e hora atuais.");
+        return;
+    }
+
+    currentShift.startDate = formatBrasiliaDateTime(selectedDate);
+    currentShift.startLocation = getCurrentCoordinates();
+    localStorage.setItem('currentShift', JSON.stringify(currentShift));
+
+    previousDateDialog.close();
+    startShiftStyles();
+    
+} 
 
 // Associa as funções aos botões
 shiftButton.addEventListener('click', toggleShift);
@@ -232,3 +258,4 @@ usePreviousTime.addEventListener('click',() => {
 closePreviousDate.addEventListener('click', () => {
     previousDateDialog.close();
 });
+confirmSelectDate.addEventListener('click', startShiftPreviousTime);
