@@ -179,6 +179,8 @@ function toggleShift() {
 
         console.log(shifts)
 
+        showSuccessAlert("Turno finalizado!");
+
     }
 }
 
@@ -195,6 +197,8 @@ function toggleBreak() {
 
         startBreakStyles();
 
+        showSuccessAlert("Intervalo iniciado!");
+
        
     } else {
 
@@ -206,6 +210,8 @@ function toggleBreak() {
         localStorage.setItem('currentShift', JSON.stringify(currentShift));
 
         endBreakStyles();
+
+        showSuccessAlert("Intervalo finalizado!")
        
     }
 }
@@ -218,6 +224,8 @@ function startShiftCurrentTime () {
     
     startShiftStyles();
     shiftActive = !shiftActive;
+
+    showSuccessAlert("Turno iniciado!");
 
 }
 
@@ -243,6 +251,8 @@ function startShiftPreviousTime() {
     previousDateDialog.close();
     startShiftStyles();
     shiftActive = !shiftActive;
+
+    showSuccessAlert("Turno iniciado!")
     
 } 
 
@@ -260,3 +270,18 @@ closePreviousDate.addEventListener('click', () => {
     previousDateDialog.close();
 });
 confirmSelectDate.addEventListener('click', startShiftPreviousTime);
+
+const successAlert = document.getElementById("successAlert");
+const successAlertText = document.getElementById("successAlertText");
+
+function showSuccessAlert(message) {
+
+    successAlertText.textContent = message;
+
+    successAlert.classList.remove("hidden");
+
+    setTimeout(() => {
+        successAlert.classList.add("hidden");
+    }, 5000);
+
+}
