@@ -25,24 +25,27 @@ function updateTime() {
 
 setInterval(updateTime);
 
-let currentCoords = {}
 function getCurrentCoordinates() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                currentCoords = { latitude: position.coords.latitude, longitude: position.coords.longitude };
-            },
-            function (error) {
-                console.error("Erro ao obter coordenadas: ", error.message);
-                currentCoords = {}
-            }
-        );
-    } else {
-        console.error("Geolocalização não é suportada pelo navegador.");
-        currentCoords = {}
-    }
-
-    return currentCoords;
+    return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    const currentCoords = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
+                    resolve(currentCoords);
+                },
+                function (error) {
+                    console.error("Erro ao obter coordenadas: ", error.message);
+                    reject({});
+                }
+            );
+        } else {
+            console.error("Geolocalização não é suportada pelo navegador.");
+            reject({});
+        }
+    });
 }
 
 function formatBrasiliaDateTime(date) {
@@ -151,7 +154,7 @@ if (IsObjectActive(currentBreak) && IsObjectActive(currentShift)) {
 }
 
 // Função para alternar o estado do turno
-function toggleShift() {
+async function toggleShift() {
     if (shiftActive && breakActive) {
         alert("Finalize o intervalo antes de finalizar o turno.");
         return;
@@ -164,7 +167,7 @@ function toggleShift() {
     } else {
 
         currentShift.endDate = formatBrasiliaDateTime(new Date());
-        currentShift.endLocation = getCurrentCoordinates();
+        currentShift.endLocation = await getCurrentCoordinates();
 
         let shifts = JSON.parse(localStorage.getItem('shifts')) || [];
         shifts.push(currentShift);
@@ -185,14 +188,14 @@ function toggleShift() {
 }
 
 // Função para alternar o estado do intervalo
-function toggleBreak() {
+async function toggleBreak() {
 
     breakActive = !breakActive;
 
     if (breakActive) {
 
         currentBreak.startDate = formatBrasiliaDateTime(new Date());
-        currentBreak.startLocation = getCurrentCoordinates();;
+        currentBreak.startLocation = await getCurrentCoordinates();;
         localStorage.setItem('currentBreak', JSON.stringify(currentBreak));
 
         startBreakStyles();
@@ -203,7 +206,7 @@ function toggleBreak() {
     } else {
 
         currentBreak.endDate = formatBrasiliaDateTime(new Date());
-        currentBreak.endLocation =  getCurrentCoordinates();
+        currentBreak.endLocation = await getCurrentCoordinates();
         currentShift.breaks.push(currentBreak)
 
         localStorage.removeItem('currentBreak');
@@ -216,10 +219,10 @@ function toggleBreak() {
     }
 }
 
-function startShiftCurrentTime () {
+async function startShiftCurrentTime () {
 
     currentShift.startDate = formatBrasiliaDateTime(new Date());
-    currentShift.startLocation = getCurrentCoordinates();
+    currentShift.startLocation = await getCurrentCoordinates();
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
     
     startShiftStyles();
@@ -229,7 +232,7 @@ function startShiftCurrentTime () {
 
 }
 
-function startShiftPreviousTime() {
+async function startShiftPreviousTime() {
 
     if (!inputStartDate.value) {
         alert("Por favor, insira uma data.");
@@ -245,7 +248,7 @@ function startShiftPreviousTime() {
     }
 
     currentShift.startDate = formatBrasiliaDateTime(selectedDate);
-    currentShift.startLocation = getCurrentCoordinates();
+    currentShift.startLocation = await getCurrentCoordinates();
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
 
     previousDateDialog.close();
