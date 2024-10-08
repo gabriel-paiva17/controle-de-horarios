@@ -8,7 +8,9 @@ if (shifts.length === 0) {
 }
 
 const groupedShifts = shifts.reduce((group, shift) => {
-    const shiftDate = new Date(shift.startDate).toLocaleDateString('pt-BR');
+   
+    const shiftDate = shift.startDate.substring(0, 10);
+
     if (!group[shiftDate]) {
         group[shiftDate] = [];
     }
