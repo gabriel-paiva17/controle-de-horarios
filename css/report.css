@@ -10,13 +10,15 @@ body {
     border: 5px groove black;
     border-radius: 25px;
 
+    padding-left: 20px;
+
 }
 
 .toggleImage {
 
     position: absolute;
     right: 30px;
-    top: 30px;
+    top: 27px;
 
     width: 20px;
     height: 20px;
@@ -34,4 +36,22 @@ body {
 .flip-vertical {
     transform: rotate(180deg);
     display: inline-block; /* Isso é importante para que a transformação funcione corretamente em imagens */
+}
+
+.shift-item {
+
+    position: relative;
+    border-top: 1px solid rgba(0, 0, 0, 1);
+    width: 98%;
+
+}
+
+.list-index {
+
+    position: absolute;
+    top: 5px;
+    right: 15px;
+
+    color: solid rgba(0, 0, 0, 0.5);
+
 }

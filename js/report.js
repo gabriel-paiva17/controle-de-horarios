@@ -24,7 +24,7 @@ Object.keys(groupedShifts).forEach(date => {
 
     // Crie uma string HTML para o conteúdo
     dateContainer.innerHTML = `
-        <h2>${date}</h2>
+        <h2 class="date-container-title">${date}</h2>
         <img src="../icon/arrow-down-icon.jpg" class="toggleImage">        
         `;
 
@@ -41,10 +41,12 @@ Object.keys(groupedShifts).forEach(date => {
     });
 
     // Adicione os itens de turno ao shiftList
-    groupedShifts[date].forEach(shift => {
+    groupedShifts[date].forEach((shift, index) => {
         const shiftItem = document.createElement('div');
         shiftItem.classList.add('shift-item');
+
         shiftItem.innerHTML = `
+            <p class="list-index">${index}</p>
             <p><strong>Início do turno:</strong> ${shift.startDate}</p>
             <p><strong>Fim do turno:</strong> ${shift.endDate}</p>
             <p><strong>Localização de início:</strong> ${shift.startLocation ? `Lat: ${shift.startLocation.latitude}, Lon: ${shift.startLocation.longitude}` : 'N/A'}</p>
