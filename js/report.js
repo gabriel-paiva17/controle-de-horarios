@@ -20,20 +20,27 @@ const groupedShifts = shifts.reduce((group, shift) => {
 
 Object.keys(groupedShifts).forEach(date => {
     const dateContainer = document.createElement('div');
-    dateContainer.classList.add('date-group');
-    
-    const dateTitle = document.createElement('h2');
-    dateTitle.textContent = date;
-    
-    const toggleButton = document.createElement('button');
-    toggleButton.textContent = "Mostrar/Ocultar";
-    toggleButton.addEventListener('click', () => {
-        shiftList.classList.toggle('hidden');
-    });
+    dateContainer.classList.add('date-container');
 
+    // Crie uma string HTML para o conteúdo
+    dateContainer.innerHTML = `
+        <h2>${date}</h2>
+        <img src="../icon/arrow-down-icon.jpg" class="toggleImage">        
+        `;
+
+    // Crie o shiftList aqui
     const shiftList = document.createElement('div');
     shiftList.classList.add('shift-list');
-    
+    shiftList.classList.add('hidden'); // A lista começa oculta
+
+    // Obtenha a imagem para adicionar o evento de clique
+    const toggleImage = dateContainer.querySelector('.toggleImage');
+    toggleImage.addEventListener('click', () => {
+        shiftList.classList.toggle('hidden');
+        toggleImage.classList.toggle('flip-vertical');
+    });
+
+    // Adicione os itens de turno ao shiftList
     groupedShifts[date].forEach(shift => {
         const shiftItem = document.createElement('div');
         shiftItem.classList.add('shift-item');
@@ -57,8 +64,7 @@ Object.keys(groupedShifts).forEach(date => {
         shiftList.appendChild(shiftItem);
     });
 
-    dateContainer.appendChild(dateTitle);
-    dateContainer.appendChild(toggleButton);
+    // Adicione o shiftList à dateContainer
     dateContainer.appendChild(shiftList);
     shiftReport.appendChild(dateContainer);
 });

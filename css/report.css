@@ -1,0 +1,37 @@
+body {
+
+    font-family: sans-serif;
+
+}
+
+.date-container {
+
+    position: relative;
+    border: 5px groove black;
+    border-radius: 25px;
+
+}
+
+.toggleImage {
+
+    position: absolute;
+    right: 30px;
+    top: 30px;
+
+    width: 20px;
+    height: 20px;
+    cursor: pointer; /* Muda o cursor para uma mãozinha ao passar sobre a imagem */
+
+}
+
+.hidden {
+
+    opacity: 0;
+    display: none; /* Oculta completamente a div */
+
+}
+
+.flip-vertical {
+    transform: rotate(180deg);
+    display: inline-block; /* Isso é importante para que a transformação funcione corretamente em imagens */
+}
