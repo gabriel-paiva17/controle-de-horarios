@@ -73,6 +73,12 @@ body {
 
 }
 
+.onlyBreak {
+
+    padding: 20px;
+
+}
+
 .break {
     
     border-top: 1px solid black;

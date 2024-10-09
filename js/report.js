@@ -54,7 +54,7 @@ Object.keys(groupedShifts).forEach(date => {
             <p><strong>Intervalos:</strong></p>
             <ul class="breakList">
             ${shift.breaks.map((breakPeriod, breakIndex) => `
-                    <li class="${breakIndex === 0 ? 'firstBreak' : (breakIndex === shift.breaks.length - 1 ? 'lastBreak' : 'break')}">
+                    <li class="${shift.breaks.length === 1 ? 'onlyBreak' : (breakIndex === 0 ? 'firstBreak' : (breakIndex === shift.breaks.length - 1 ? 'lastBreak' : 'break'))}">
                         <div class="breakInfo"><strong>Início do intervalo:</strong> ${breakPeriod.startDate}</div> 
                         <div class="breakInfo"><strong>Localização de início:</strong> ${breakPeriod.startLocation ? `Lat: ${breakPeriod.startLocation.latitude}, Lon: ${breakPeriod.startLocation.longitude}` : 'N/A'}</div> 
                         <div class="breakInfo"><strong>Fim do intervalo:</strong> ${breakPeriod.endDate}</div>
