@@ -45,7 +45,7 @@ Object.keys(groupedShifts).forEach(date => {
         const shiftItem = document.createElement('div');
         shiftItem.classList.add('shift-item');
 
-        breakContent = ""
+        breakContent = "<p><strong>Sem intervalos.</strong></p>"
 
         if (shift.breaks && shift.breaks.length > 0) {
 
