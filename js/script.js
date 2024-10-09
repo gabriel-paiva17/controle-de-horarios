@@ -194,6 +194,8 @@ async function toggleBreak() {
 
     if (breakActive) {
 
+        currentBreak = {};
+
         currentBreak.startDate = formatBrasiliaDateTime(new Date());
         currentBreak.startLocation = await getCurrentCoordinates();;
         localStorage.setItem('currentBreak', JSON.stringify(currentBreak));
@@ -209,8 +211,8 @@ async function toggleBreak() {
         currentBreak.endLocation = await getCurrentCoordinates();
         currentShift.breaks.push(currentBreak)
 
-        localStorage.removeItem('currentBreak');
         localStorage.setItem('currentShift', JSON.stringify(currentShift));
+        localStorage.removeItem('currentBreak');
 
         endBreakStyles();
 
