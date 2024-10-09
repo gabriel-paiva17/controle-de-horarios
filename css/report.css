@@ -11,6 +11,9 @@ body {
     border-radius: 25px;
 
     padding-left: 20px;
+    margin-bottom: 10px;
+
+    background-color: lightgrey
 
 }
 
@@ -55,3 +58,53 @@ body {
     color: solid rgba(0, 0, 0, 0.5);
 
 }
+
+.breakList {
+
+    
+    border: 1px solid black;
+    border-radius: 25px;
+
+    list-style-type: none;
+    padding-left: 0px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+.break {
+    
+    border-top: 1px solid black;
+    padding: 20px;
+    width: 98.4%;
+
+}
+
+.lastBreak {
+
+
+    border-top: 1px solid black;
+    padding-top: 20px;
+    padding-left: 20px; 
+    padding-right: 20px; 
+    padding-bottom: 10px;
+    width: 98.4%;
+
+}
+
+.firstBreak {
+
+    padding-top: 10px;
+    padding-left: 20px; 
+    padding-right: 20px; 
+    padding-bottom: 20px;
+
+}
+
+.breakInfo {
+
+    padding-bottom: 10px;
+
+}
+

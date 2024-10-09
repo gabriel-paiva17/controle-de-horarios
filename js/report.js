@@ -46,18 +46,18 @@ Object.keys(groupedShifts).forEach(date => {
         shiftItem.classList.add('shift-item');
 
         shiftItem.innerHTML = `
-            <p class="list-index">${index}</p>
+            <p class="list-index">${index + 1}</p>
             <p><strong>Início do turno:</strong> ${shift.startDate}</p>
             <p><strong>Fim do turno:</strong> ${shift.endDate}</p>
             <p><strong>Localização de início:</strong> ${shift.startLocation ? `Lat: ${shift.startLocation.latitude}, Lon: ${shift.startLocation.longitude}` : 'N/A'}</p>
             <p><strong>Localização de fim:</strong> ${shift.endLocation ? `Lat: ${shift.endLocation.latitude}, Lon: ${shift.endLocation.longitude}` : 'N/A'}</p>
             <p><strong>Intervalos:</strong></p>
-            <ul>
-                ${shift.breaks.map(breakPeriod => `
-                    <li>
-                        <div><strong>Início do intervalo:</strong> ${breakPeriod.startDate}</div> 
-                        <div><strong>Localização de início:</strong> ${breakPeriod.startLocation ? `Lat: ${breakPeriod.startLocation.latitude}, Lon: ${breakPeriod.startLocation.longitude}` : 'N/A'}</div> 
-                        <div><strong>Fim do intervalo:</strong> ${breakPeriod.endDate}</div>
+            <ul class="breakList">
+            ${shift.breaks.map((breakPeriod, breakIndex) => `
+                    <li class="${breakIndex === 0 ? 'firstBreak' : (breakIndex === shift.breaks.length - 1 ? 'lastBreak' : 'break')}">
+                        <div class="breakInfo"><strong>Início do intervalo:</strong> ${breakPeriod.startDate}</div> 
+                        <div class="breakInfo"><strong>Localização de início:</strong> ${breakPeriod.startLocation ? `Lat: ${breakPeriod.startLocation.latitude}, Lon: ${breakPeriod.startLocation.longitude}` : 'N/A'}</div> 
+                        <div class="breakInfo"><strong>Fim do intervalo:</strong> ${breakPeriod.endDate}</div>
                         <div><strong>Localização de fim:</strong> ${breakPeriod.endLocation ? `Lat: ${breakPeriod.endLocation.latitude}, Lon: ${breakPeriod.endLocation.longitude}` : 'N/A'}</div>  
                     </li>
                 `).join('')}
