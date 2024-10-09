@@ -45,15 +45,14 @@ Object.keys(groupedShifts).forEach(date => {
         const shiftItem = document.createElement('div');
         shiftItem.classList.add('shift-item');
 
-        shiftItem.innerHTML = `
-            <p class="list-index">${index + 1}</p>
-            <p><strong>Início do turno:</strong> ${shift.startDate}</p>
-            <p><strong>Fim do turno:</strong> ${shift.endDate}</p>
-            <p><strong>Localização de início:</strong> ${shift.startLocation ? `Lat: ${shift.startLocation.latitude}, Lon: ${shift.startLocation.longitude}` : 'N/A'}</p>
-            <p><strong>Localização de fim:</strong> ${shift.endLocation ? `Lat: ${shift.endLocation.latitude}, Lon: ${shift.endLocation.longitude}` : 'N/A'}</p>
+        breakContent = ""
+
+        if (shift.breaks && shift.breaks.length > 0) {
+
+            breakContent = `
             <p><strong>Intervalos:</strong></p>
             <ul class="breakList">
-            ${shift.breaks.map((breakPeriod, breakIndex) => `
+                ${shift.breaks.map((breakPeriod, breakIndex) => `
                     <li class="${shift.breaks.length === 1 ? 'onlyBreak' : (breakIndex === 0 ? 'firstBreak' : (breakIndex === shift.breaks.length - 1 ? 'lastBreak' : 'break'))}">
                         <div class="breakInfo"><strong>Início do intervalo:</strong> ${breakPeriod.startDate}</div> 
                         <div class="breakInfo"><strong>Localização de início:</strong> ${breakPeriod.startLocation ? `Lat: ${breakPeriod.startLocation.latitude}, Lon: ${breakPeriod.startLocation.longitude}` : 'N/A'}</div> 
@@ -61,7 +60,17 @@ Object.keys(groupedShifts).forEach(date => {
                         <div><strong>Localização de fim:</strong> ${breakPeriod.endLocation ? `Lat: ${breakPeriod.endLocation.latitude}, Lon: ${breakPeriod.endLocation.longitude}` : 'N/A'}</div>  
                     </li>
                 `).join('')}
-            </ul>
+            </ul>`
+
+        }
+
+        shiftItem.innerHTML = `
+            <p class="list-index">${index + 1}</p>
+            <p><strong>Início do turno:</strong> ${shift.startDate}</p>
+            <p><strong>Fim do turno:</strong> ${shift.endDate}</p>
+            <p><strong>Localização de início:</strong> ${shift.startLocation ? `Lat: ${shift.startLocation.latitude}, Lon: ${shift.startLocation.longitude}` : 'N/A'}</p>
+            <p><strong>Localização de fim:</strong> ${shift.endLocation ? `Lat: ${shift.endLocation.latitude}, Lon: ${shift.endLocation.longitude}` : 'N/A'}</p>
+            ${breakContent}
         `;
         shiftList.appendChild(shiftItem);
     });
