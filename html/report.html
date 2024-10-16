@@ -8,7 +8,16 @@
 </head>
 
 <body>
-    <h1>Relatório de Turnos</h1>
+    <div id="reportHeader">
+        <h1>Relatório de Turnos</h1>
+        <label for="selectPeriod"class="timeFilter" id="labelFilter">Filtrar por:</label>
+        <select id="selectPeriod" class="timeFilter">
+            <option value="all">Todos os registros</option>
+            <option value="week">Última semana</option>
+            <option value="month">Último mês</option>
+        </select>
+    </div>
+    
     <div id="shiftReport"></div>
 
     <script src="../js/report.js"></script>

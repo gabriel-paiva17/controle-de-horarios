@@ -4,6 +4,28 @@ body {
 
 }
 
+#reportHeader {
+
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espaçamento entre os elementos */
+    justify-content: center;
+
+}
+
+#labelFilter {
+
+    margin-left: 10px;
+
+}
+
+.timeFilter {
+
+    display: inline;
+    margin-top: 6px;
+
+}
+
 .date-container {
 
     position: relative;
