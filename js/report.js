@@ -45,7 +45,7 @@ Object.keys(groupedShifts).forEach(date => {
         const shiftItem = document.createElement('div');
         shiftItem.classList.add('shift-item');
 
-        breakContent = "<p><strong>Sem intervalos.</strong></p>"
+        breakContent = `<p class="redText"><strong>Sem intervalos.</strong></p>`
 
         if (shift.breaks && shift.breaks.length > 0) {
 
@@ -66,6 +66,7 @@ Object.keys(groupedShifts).forEach(date => {
 
         shiftItem.innerHTML = `
             <p class="list-index">${index + 1}</p>
+            ${shift.startedWithPreviousDate ? `<p class="redText"><strong>Esse turno foi inicializado com uma data anterior selecionada manualmente.</strong></p>` : ``}
             <p><strong>Início do turno:</strong> ${shift.startDate}</p>
             <p><strong>Fim do turno:</strong> ${shift.endDate}</p>
             <p><strong>Localização de início:</strong> ${shift.startLocation ? `Lat: ${shift.startLocation.latitude}, Lon: ${shift.startLocation.longitude}` : 'N/A'}</p>

@@ -251,6 +251,7 @@ async function startShiftPreviousTime() {
 
     currentShift.startDate = formatBrasiliaDateTime(selectedDate);
     currentShift.startLocation = await getCurrentCoordinates();
+    currentShift.startedWithPreviousDate = true;
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
 
     previousDateDialog.close();
