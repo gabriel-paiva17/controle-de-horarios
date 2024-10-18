@@ -291,3 +291,18 @@ function showSuccessAlert(message) {
     }, 5000);
 
 }
+
+const absentButton = document.getElementById("absentButton");
+const absentDialog = document.getElementById("absentDialog");
+const closeAbsentDialog = document.getElementById("closeAbsentDialog");
+
+closeAbsentDialog.addEventListener('click', () => {
+    absentDialog.close();
+});
+
+absentButton.addEventListener('click', () => {
+
+    absentDialog.showModal();
+
+})
+

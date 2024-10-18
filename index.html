@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="absentButton">
+        <div id="absentButton">
             <img src="icon\alert.png" class="alertIcon"><img/>
             <p class="absentText"><strong>Justificar ausência</strong></p>
         </div>
@@ -49,6 +49,24 @@
             <button class="styledButton" id="confirmSelectDate"><span>Confirmar</span></button>
         </div>
     </dialog>
+
+    <dialog id="absentDialog">
+        <img src="icon\close-button.png" class="closeButton" id="closeAbsentDialog"></img>
+        <form method="dialog">
+            <div class="absentFormContent">
+                <p id="absentDateQuestion">Selecione a data e o horário da ausência:</p>
+                <input type="datetime-local" id="inputAbsentDate"></input>
+
+                <p id="absenceAttachmentQuestion">Anexar justificativa da ausência:</p>
+                <input type="file" id="absenceAttachment" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt">
+
+                <div class="absentDialogButtons">
+                    <button type="submit" class="styledButton" id="submitAbsence"><span>Enviar</span></button>
+                </div>
+            </div>
+        </form>
+    </dialog>
+
 
     <div id="successAlert" class="hidden">
         <p id="successAlertText">

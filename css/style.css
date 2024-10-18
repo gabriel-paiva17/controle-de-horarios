@@ -38,7 +38,7 @@
 
 }
 
-.absentButton {
+#absentButton {
 
     display: flex;
     align-items: center;
@@ -55,13 +55,13 @@
 
 }
 
-.absentButton:hover {
+#absentButton:hover {
     transform: scale(1.05); /* Aumenta levemente o tamanho da imagem */
     opacity: 0.8; /* Deixa a imagem um pouco transparente */
 }
 
 /* Efeito ao clicar na imagem */
-.absentButton:active {
+#absentButton:active {
     transform: scale(0.99999); /* Reduz levemente o tamanho da imagem */
     opacity: 0.6; /* Torna a imagem mais transparente */
 }
@@ -252,7 +252,7 @@ dialog {
 
 }
 
-#closeStartDate, #closePreviousDate {
+#closeStartDate, #closePreviousDate, #closeAbsentDialog {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -385,5 +385,37 @@ dialog {
 .hidden {
 
     opacity: 0;
+
+}
+
+#absentDialog {
+
+    text-align: center;
+
+    font-family: sans-serif;
+
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 40px;
+    padding-left: 40px; 
+
+}
+
+#submitAbsence {
+
+    margin-top: 15px;
+    width: 125px;
+    background: #66ff66;
+    color: #66ff66;
+    
+}
+
+#submitAbsence:hover span {
+    color: black;
+}
+
+#submitAbsence::before {
+
+    background: #000;
 
 }
