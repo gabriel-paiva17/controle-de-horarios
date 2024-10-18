@@ -5,3 +5,4 @@ sistema de controle de horários, feito como projeto final para programacao web 
 # BACKLOG
 
 - melhorar notificacao quando nao ha nenhum turno
+- botao de ausencia sem comportamento

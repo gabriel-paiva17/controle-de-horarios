@@ -15,12 +15,18 @@
 
 }
 
-.shiftController {
+.mainContent {
 
     position: fixed;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); 
+    text-align: center;   
+
+}
+
+.shiftController {
+    margin-bottom: 20px;
     padding-top: 20px;
     padding-bottom: 30px;
     padding-left: 30px;
@@ -28,7 +34,53 @@
     border: 5px groove black;
     border-radius: 25px;
     background-color: lightgrey;
+    text-align: left;
 
+}
+
+.absentButton {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 200px;
+    font-family: sans-serif;
+    border: 1px solid grey;
+    border-radius: 10px;
+    background: lightyellow;
+
+    cursor: pointer; /* Muda o cursor para uma mãozinha ao passar sobre a imagem */
+    transition: transform 0.2s, opacity 0.2s; /* Suaviza a transição para os estados hover e active */
+
+}
+
+.absentButton:hover {
+    transform: scale(1.05); /* Aumenta levemente o tamanho da imagem */
+    opacity: 0.8; /* Deixa a imagem um pouco transparente */
+}
+
+/* Efeito ao clicar na imagem */
+.absentButton:active {
+    transform: scale(0.99999); /* Reduz levemente o tamanho da imagem */
+    opacity: 0.6; /* Torna a imagem mais transparente */
+}
+
+.alertIcon {
+    
+    margin-left: 25px;
+    width: 40px;
+    height: 40px;
+
+
+}
+
+.absentText {
+
+    font-size: 20px;
+    margin-left: 5px;
+    padding-top: 2px;
+    width: fit-content;
 }
 
 .currentState {
@@ -115,6 +167,12 @@
    
    .styledButton:hover::before {
     transform: translate3d(100%, 0, 0);
+   }
+
+   .controlButtons {
+
+        margin: 4px;
+
    }
 
    #shiftButton {
