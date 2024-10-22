@@ -38,13 +38,22 @@
 
 }
 
-#absentButton {
+.buttonContainer {
+    display: flex; /* Habilita o layout em flexbox */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    align-items: center; /* Alinha verticalmente no centro */
+    gap: 20px; /* Espaçamento entre os botões */
+    margin: auto; /* Centraliza o container na página */
+}
+
+#absentButton,#shiftRecordButton {
 
     display: flex;
     align-items: center;
     justify-content: center;
     margin: auto;
     width: 200px;
+    height: 75px;
     font-family: sans-serif;
     border: 1px solid grey;
     border-radius: 10px;
@@ -55,13 +64,13 @@
 
 }
 
-#absentButton:hover {
+#absentButton:hover,#shiftRecordButton:hover {
     transform: scale(1.05); /* Aumenta levemente o tamanho da imagem */
     opacity: 0.8; /* Deixa a imagem um pouco transparente */
 }
 
 /* Efeito ao clicar na imagem */
-#absentButton:active {
+#absentButton:active,#shiftRecordButton:active {
     transform: scale(0.99999); /* Reduz levemente o tamanho da imagem */
     opacity: 0.6; /* Torna a imagem mais transparente */
 }
@@ -75,12 +84,30 @@
 
 }
 
+.recordIcon{
+
+    margin-left: 25px;
+    width: 40px;
+    height: 40px;
+
+}
+
 .absentText {
 
     font-size: 20px;
     margin-left: 5px;
     padding-top: 2px;
     width: fit-content;
+}
+
+.shiftRecordText{
+
+    font-size: 20px;
+    margin-left: 5px;
+    margin-right: 15px;
+    padding-top: 2px;
+    width: fit-content;
+
 }
 
 .currentState {

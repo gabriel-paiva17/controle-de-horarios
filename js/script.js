@@ -225,6 +225,7 @@ async function startShiftCurrentTime () {
 
     currentShift.startDate = formatBrasiliaDateTime(new Date());
     currentShift.startLocation = await getCurrentCoordinates();
+    /*adicionar id para edicao depois*/
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
     
     startShiftStyles();
@@ -292,9 +293,42 @@ function showSuccessAlert(message) {
 
 }
 
+const inputAbsentDate = document.getElementById("inputAbsentDate");
 const absentButton = document.getElementById("absentButton");
 const absentDialog = document.getElementById("absentDialog");
 const closeAbsentDialog = document.getElementById("closeAbsentDialog");
+const submitAbsentButton = document.getElementById("submitAbsence");
+const absenceAttachment = document.getElementById("absenceAttachment");
+
+submitAbsentButton.addEventListener('click', () => {
+    const dateTimeValue = inputAbsentDate.value;
+
+    let absence = {
+        "date": dateTimeValue.split('T')[0],
+        "time": dateTimeValue.split('T')[1],
+    }
+
+    saveAbsence(absence);
+    absentDialog.close();
+})
+
+function restoreAllAbsences(){
+    let allAbsences = localStorage.getItem("absences");
+
+    if(!allAbsences){
+        return [];
+    }
+
+    return JSON.parse(allAbsences)
+}
+
+function saveAbsence(absence){
+    let allAbsences = restoreAllAbsences();
+
+    allAbsences.push(absence);
+
+    localStorage.setItem("absences", JSON.stringify(allAbsences))
+}
 
 closeAbsentDialog.addEventListener('click', () => {
     absentDialog.close();
@@ -306,3 +340,10 @@ absentButton.addEventListener('click', () => {
 
 })
 
+const shiftRecordButton = document.getElementById("shiftRecordButton");
+
+shiftRecordButton.addEventListener('click',() => {
+
+    window.location.href = '../html/report.html'
+
+})
