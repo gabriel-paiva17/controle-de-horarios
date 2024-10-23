@@ -383,8 +383,21 @@ const absentDialog = document.getElementById("absentDialog");
 const closeAbsentDialog = document.getElementById("closeAbsentDialog");
 const submitAbsentButton = document.getElementById("submitAbsence");
 const absenceAttachment = document.getElementById("absenceAttachment");
+let fileContent = '';
+
+document.getElementById('absenceAttachment').addEventListener("change",()=>{
+    const file = Event.target.files[0];
+
+    if (file){
+        const reader = new FileReader();
+
+        //reader.onload = function(e)
+    }
+})
 
 submitAbsentButton.addEventListener('click', () => {
+
+
     if (inputAbsentDate.value == ""){
         alert("Selecione uma data e horário");
         return
