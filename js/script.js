@@ -155,14 +155,19 @@ if (IsObjectActive(currentBreak) && IsObjectActive(currentShift)) {
 
 // Função para alternar o estado do turno
 async function toggleShift() {
+
+    shiftButton.disabled = true;
+
     if (shiftActive && breakActive) {
         alert("Finalize o intervalo antes de finalizar o turno.");
+        shiftButton.disabled = false;
         return;
     }
 
     if (!shiftActive) {
         
         startDateDialog.showModal();
+
         
     } else {
 
@@ -185,10 +190,14 @@ async function toggleShift() {
         showSuccessAlert("Turno finalizado!");
 
     }
+
+    shiftButton.disabled = false;
 }
 
 // Função para alternar o estado do intervalo
 async function toggleBreak() {
+
+    breakButton.disabled = true;
 
     breakActive = !breakActive;
 
@@ -219,6 +228,9 @@ async function toggleBreak() {
         showSuccessAlert("Intervalo finalizado!")
        
     }
+
+    breakButton.disabled = false;
+
 }
 
 async function startShiftCurrentTime () {
