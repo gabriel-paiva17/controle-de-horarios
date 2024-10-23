@@ -310,6 +310,8 @@ submitAbsentButton.addEventListener('click', () => {
 
     saveAbsence(absence);
     absentDialog.close();
+
+    
 })
 
 function restoreAllAbsences(){

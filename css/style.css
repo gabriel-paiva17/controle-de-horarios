@@ -38,7 +38,7 @@
 
 }
 
-.buttonContainer {
+#buttonContainer {
     display: flex; /* Habilita o layout em flexbox */
     justify-content: center; /* Centraliza os itens horizontalmente */
     align-items: center; /* Alinha verticalmente no centro */
@@ -51,7 +51,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: auto;
+    margin: 0px;
     width: 200px;
     height: 75px;
     font-family: sans-serif;
@@ -61,6 +61,13 @@
 
     cursor: pointer; /* Muda o cursor para uma mãozinha ao passar sobre a imagem */
     transition: transform 0.2s, opacity 0.2s; /* Suaviza a transição para os estados hover e active */
+
+}
+
+#shiftRecordButton {
+
+
+    background: lightblue;
 
 }
 
@@ -108,6 +115,21 @@
     padding-top: 2px;
     width: fit-content;
 
+}
+
+#absenceAttachmentQuestion {
+
+
+    margin-top: 30px;
+    margin-bottom: 5px;
+    
+
+}
+
+#absenceAttachmentQuestion2 {
+
+    margin-top: 0px;
+    
 }
 
 .currentState {
