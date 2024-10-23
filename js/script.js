@@ -167,12 +167,27 @@ async function toggleShift() {
     if (!shiftActive) {
         
         startDateDialog.showModal();
-
         
     } else {
 
         currentShift.endDate = formatBrasiliaDateTime(new Date());
-        currentShift.endLocation = await getCurrentCoordinates();
+        
+        await getCurrentCoordinates()
+            .then(location => {
+                currentShift.endLocation = location;
+            })
+            .catch(error => {
+                console.error("Erro ao obter a localização:", error);
+                alert("Erro ao obter a localização. Tente novamente.");
+                shiftButton.disabled = false;
+                return;
+            });
+
+        if (!shiftButton.disabled) {
+
+            return;
+
+        }
 
         let shifts = JSON.parse(localStorage.getItem('shifts')) || [];
         shifts.push(currentShift);
@@ -199,25 +214,59 @@ async function toggleBreak() {
 
     breakButton.disabled = true;
 
-    breakActive = !breakActive;
-
-    if (breakActive) {
+    if (!breakActive) {
 
         currentBreak = {};
 
         currentBreak.startDate = formatBrasiliaDateTime(new Date());
-        currentBreak.startLocation = await getCurrentCoordinates();;
+       
+        await getCurrentCoordinates()
+            .then(location => {
+                currentBreak.startLocation = location;
+            })
+            .catch(error => {
+                console.error("Erro ao obter a localização:", error);
+                alert("Erro ao obter a localização. Tente novamente.");
+                breakButton.disabled = false;
+                return;
+            });
+     
+        if (!breakButton.disabled) {
+
+            return;
+
+        }
+
         localStorage.setItem('currentBreak', JSON.stringify(currentBreak));
 
         startBreakStyles();
 
         showSuccessAlert("Intervalo iniciado!");
 
+        breakActive = !breakActive;
+
        
     } else {
 
         currentBreak.endDate = formatBrasiliaDateTime(new Date());
-        currentBreak.endLocation = await getCurrentCoordinates();
+        
+        await getCurrentCoordinates()
+            .then(location => {
+                currentBreak.endLocation = location;
+            })
+            .catch(error => {
+                console.error("Erro ao obter a localização:", error);
+                alert("Erro ao obter a localização. Tente novamente.");
+                breakButton.disabled = false;
+                return;
+            });
+     
+        if (!breakButton.disabled) {
+
+            return;
+
+        }
+
         currentShift.breaks.push(currentBreak)
 
         localStorage.setItem('currentShift', JSON.stringify(currentShift));
@@ -226,6 +275,8 @@ async function toggleBreak() {
         endBreakStyles();
 
         showSuccessAlert("Intervalo finalizado!")
+
+        breakActive = !breakActive;
        
     }
 
@@ -249,6 +300,8 @@ async function startShiftCurrentTime () {
 
 async function startShiftPreviousTime() {
 
+    confirmSelectDate.disabled = true;
+
     if (!inputStartDate.value) {
         alert("Por favor, insira uma data.");
         return;
@@ -263,7 +316,23 @@ async function startShiftPreviousTime() {
     }
 
     currentShift.startDate = formatBrasiliaDateTime(selectedDate);
-    currentShift.startLocation = await getCurrentCoordinates();
+    await getCurrentCoordinates()
+        .then(location => {
+            currentShift.startLocation = location;
+        })
+        .catch(error => {
+            console.error("Erro ao obter a localização:", error);
+            alert("Erro ao obter a localização. Tente novamente.");
+            confirmSelectDate.disabled = false;
+            return;
+        });
+
+    if (!confirmSelectDate.disabled) {
+
+        return;
+
+    }
+
     currentShift.id = crypto.randomUUID();
     currentShift.startedWithPreviousDate = true;
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
@@ -274,6 +343,8 @@ async function startShiftPreviousTime() {
 
     showSuccessAlert("Turno iniciado!")
     
+    confirmSelectDate.disabled = false;
+
 } 
 
 // Associa as funções aos botões
