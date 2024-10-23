@@ -58,20 +58,18 @@
 
     <dialog id="absentDialog">
         <img src="icon\close-button.png" class="closeButton" id="closeAbsentDialog"></img>
-        <form method="dialog">
-            <div class="absentFormContent">
-                <p id="absentDateQuestion">Selecione a data e o horário da ausência:</p>
-                <input type="datetime-local" id="inputAbsentDate"></input>
+        <div class="absentFormContent">
+            <p id="absentDateQuestion">Selecione a data e o horário da ausência:</p>
+            <input type="datetime-local" id="inputAbsentDate"></input>
 
-                <p id="absenceAttachmentQuestion">Anexar justificativa da ausência</p>
-                <p id="absenceAttachmentQuestion2"> (aceita arquivos .pdf, .doc, .docx, .png, .jpg, .jpeg, .txt):</p>
-                <input type="file" id="absenceAttachment" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt">
+            <p id="absenceAttachmentQuestion">Anexar justificativa da ausência</p>
+            <p id="absenceAttachmentQuestion2"> (aceita arquivos .pdf, .doc, .docx, .png, .jpg, .jpeg, .txt):</p>
+            <input type="file" id="absenceAttachment" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt">
 
-                <div class="absentDialogButtons">
+            <div class="absentDialogButtons">
                     <button type="submit" class="styledButton" id="submitAbsence"><span>Enviar</span></button>
-                </div>
             </div>
-        </form>
+        </div>
     </dialog>
 
 

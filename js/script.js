@@ -225,7 +225,7 @@ async function startShiftCurrentTime () {
 
     currentShift.startDate = formatBrasiliaDateTime(new Date());
     currentShift.startLocation = await getCurrentCoordinates();
-    /*adicionar id para edicao depois*/
+    currentShift.id = crypto.randomUUID();
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
     
     startShiftStyles();
@@ -252,6 +252,7 @@ async function startShiftPreviousTime() {
 
     currentShift.startDate = formatBrasiliaDateTime(selectedDate);
     currentShift.startLocation = await getCurrentCoordinates();
+    currentShift.id = crypto.randomUUID();
     currentShift.startedWithPreviousDate = true;
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
 
@@ -301,17 +302,20 @@ const submitAbsentButton = document.getElementById("submitAbsence");
 const absenceAttachment = document.getElementById("absenceAttachment");
 
 submitAbsentButton.addEventListener('click', () => {
-    const dateTimeValue = inputAbsentDate.value;
+    if (inputAbsentDate.value == ""){
+        alert("Selecione uma data e horário");
+        return
+    }
 
     let absence = {
-        "date": dateTimeValue.split('T')[0],
-        "time": dateTimeValue.split('T')[1],
+        "id": crypto.randomUUID(),
+        "date": formatBrasiliaDateTime(new Date(inputAbsentDate.value)),
+
     }
 
     saveAbsence(absence);
     absentDialog.close();
-
-    
+    showSuccessAlert("Ausência enviada");
 })
 
 function restoreAllAbsences(){
