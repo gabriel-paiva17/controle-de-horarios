@@ -384,19 +384,35 @@ const closeAbsentDialog = document.getElementById("closeAbsentDialog");
 const submitAbsentButton = document.getElementById("submitAbsence");
 const absenceAttachment = document.getElementById("absenceAttachment");
 let fileContent = '';
+const MAX_SIZE_FILE = Math.pow(2,20); //Tamanho máximo de 1mb
 
 document.getElementById('absenceAttachment').addEventListener("change",()=>{
-    const file = Event.target.files[0];
+    const file = event.target.files[0];
+
+    if (file.size > MAX_SIZE_FILE){
+        alert("Tamanho máximo de arquivo permitido é 1mb");
+        return
+    }
 
     if (file){
+        //Classe que lê o arquivo
         const reader = new FileReader();
 
-        //reader.onload = function(e)
+        //Quando o arquivo for lido vai armazenar o resultado no filecontent
+        reader.onload = function(e){
+            fileContent = e.target.result;
+        };
+
+        //Arquivo sendo lido
+        reader.readAsText(file);
     }
 })
 
 submitAbsentButton.addEventListener('click', () => {
 
+    if (fileContent == ''){
+        alert('Nenhum arquivo foi selecionado!');
+    }
 
     if (inputAbsentDate.value == ""){
         alert("Selecione uma data e horário");
@@ -406,7 +422,7 @@ submitAbsentButton.addEventListener('click', () => {
     let absence = {
         "id": crypto.randomUUID(),
         "date": formatBrasiliaDateTime(new Date(inputAbsentDate.value)),
-
+        "file": fileContent,
     }
 
     saveAbsence(absence);
