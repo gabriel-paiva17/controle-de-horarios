@@ -384,34 +384,41 @@ const closeAbsentDialog = document.getElementById("closeAbsentDialog");
 const submitAbsentButton = document.getElementById("submitAbsence");
 const absenceAttachment = document.getElementById("absenceAttachment");
 let fileContent = '';
-const MAX_SIZE_FILE = Math.pow(2,20); //Tamanho máximo de 1mb
+const MAX_SIZE_FILE = 1 * 1024 * 1024; //Tamanho máximo de 1mb
 
-document.getElementById('absenceAttachment').addEventListener("change",()=>{
+function readFileContent(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = (event) => resolve(event.target.result);
+        reader.onerror = (error) => reject(error);
+
+        reader.readAsText(file);
+    });
+}
+
+document.getElementById('absenceAttachment').addEventListener("change",async (event)=>{
     const file = event.target.files[0];
+
+    if (!file) return;
 
     if (file.size > MAX_SIZE_FILE){
         alert("Tamanho máximo de arquivo permitido é 1mb");
-        return
+        return;
     }
 
-    if (file){
-        //Classe que lê o arquivo
-        const reader = new FileReader();
-
-        //Quando o arquivo for lido vai armazenar o resultado no filecontent
-        reader.onload = function(e){
-            fileContent = e.target.result;
-        };
-
-        //Arquivo sendo lido
-        reader.readAsText(file);
+    try{
+        fileContent = await readFileContent(file);
+    } catch(error){
+        console.error("Erro ao ler o arquivo", error);
     }
-})
+});
 
 submitAbsentButton.addEventListener('click', () => {
 
-    if (fileContent == ''){
+    if (!fileContent){
         alert('Nenhum arquivo foi selecionado!');
+        return
     }
 
     if (inputAbsentDate.value == ""){
