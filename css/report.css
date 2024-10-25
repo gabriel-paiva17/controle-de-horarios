@@ -35,8 +35,19 @@ body {
     padding-left: 20px;
     margin-bottom: 10px;
 
+
+}
+
+.grey-background {
+
     background-color: lightgrey
 
+}
+
+.yellow-background {
+
+    background-color: lightyellow
+    
 }
 
 .toggleImage {
@@ -63,7 +74,7 @@ body {
     display: inline-block; /* Isso é importante para que a transformação funcione corretamente em imagens */
 }
 
-.shift-item {
+.shift-item, .absence-item {
 
     position: relative;
     border-top: 1px solid rgba(0, 0, 0, 1);
@@ -138,5 +149,12 @@ body {
 .redText {
 
     color: red;
+
+}
+#shiftsTitle, #absencesTitle {
+
+
+    padding-left: 10px;
+
 
 }

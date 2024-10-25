@@ -31,21 +31,21 @@ function getLastMonthRange() {
 
 }
 
-// Filtrar turnos por semana passada
-function filterShiftsByLastWeek(shifts) {
+// Filtrar por semana passada
+function filterByLastWeek(items) {
     const { start, end } = getLastWeekRange();
-    return shifts.filter(shift => {
-        const shiftDate = stringToDate(shift.startDate);
-        return shiftDate >= start && shiftDate <= end;
+    return items.filter(item => {
+        const itemDate = stringToDate(item.startDate);
+        return itemDate >= start && itemDate <= end;
     });
 }
 
-// Filtrar turnos por mês passado
-function filterShiftsByLastMonth(shifts) {
+// Filtrar por mês passado
+function filterByLastMonth(items) {
     const { start, end } = getLastMonthRange();
-    return shifts.filter(shift => {
-        const shiftDate = stringToDate(shift.startDate);
-        return shiftDate >= start && shiftDate <= end;
+    return items.filter(item => {
+        const itemDate = stringToDate(item.startDate);
+        return itemDate >= start && itemDate <= end;
     });
 }
 
@@ -73,6 +73,7 @@ function renderShifts(filteredShifts) {
     Object.keys(groupedShifts).forEach(date => {
         const dateContainer = document.createElement('div');
         dateContainer.classList.add('date-container');
+        dateContainer.classList.add('grey-background');
 
         // Crie uma string HTML para o conteúdo
         dateContainer.innerHTML = `
@@ -135,16 +136,90 @@ function renderShifts(filteredShifts) {
 
 }
 
+// Renderiza todos os turnos inicialmente
+renderShifts(shifts);
+
+// Elemento para o relatório de ausências
+const absenceReport = document.getElementById('absenceReport');
+const absences = JSON.parse(localStorage.getItem('absences')) || [];
+
+console.log(absences)
+
+function renderAbsences(filteredAbsences) {
+    absenceReport.textContent = ""; // Limpar o conteúdo anterior
+
+    if (filteredAbsences.length === 0) {
+        absenceReport.textContent = "Nenhuma ausência registrada.";
+        return; // Termina a função se não houver ausências
+    }
+
+    const groupedAbsences = filteredAbsences.reduce((group, absence) => {
+        const absenceDate = absence.startDate.substring(0, 10); // Usando startDate
+        if (!group[absenceDate]) {
+            group[absenceDate] = [];
+        }
+        group[absenceDate].push(absence);
+        return group;
+    }, {});
+
+    Object.keys(groupedAbsences).forEach(date => {
+        const dateContainer = document.createElement('div');
+        dateContainer.classList.add('date-container');
+        dateContainer.classList.add('yellow-background');
+
+
+        dateContainer.innerHTML = `
+            <h2 class="date-container-title">${date}</h2>
+            <img src="../icon/arrow-down-icon.jpg" class="toggleImage">
+        `;
+
+        const absenceList = document.createElement('div');
+        absenceList.classList.add('absence-list', 'hidden');
+
+        const toggleImage = dateContainer.querySelector('.toggleImage');
+        toggleImage.addEventListener('click', () => {
+            absenceList.classList.toggle('hidden');
+            toggleImage.classList.toggle('flip-vertical');
+        });
+
+        groupedAbsences[date].forEach((absence, index) => {
+            const absenceItem = document.createElement('div');
+            absenceItem.classList.add('absence-item');
+
+            absenceItem.innerHTML = `
+                <p class="list-index">${index + 1}</p>
+                <p><strong>Data:</strong> ${absence.startDate}</p> 
+                <p><strong>Arquivo:</strong> ${
+                    absence.file ? 
+                    `<a href="${URL.createObjectURL(new Blob([absence.file], { type: 'application/octet-stream' }))}" download="ausencia_${index + 1}_${absence.startDate.substring(0, 10)}.png">Baixar</a>` : 
+                    'Não disponível'
+                }</p>
+            `;
+
+            absenceList.appendChild(absenceItem);
+        });
+
+        dateContainer.appendChild(absenceList);
+        absenceReport.appendChild(dateContainer);
+    });
+}
+
+renderAbsences(absences)
+
 // Evento para filtrar ao selecionar o período
 selectPeriod.addEventListener('change', () => {
     let filteredShifts = shifts;
+    let filteredAbsences = absences;
+
     if (selectPeriod.value === 'week') {
-        filteredShifts = filterShiftsByLastWeek(shifts);
+        filteredShifts = filterByLastWeek(shifts);
+        filteredAbsences = filterByLastWeek(absences);
     } else if (selectPeriod.value === 'month') {
-        filteredShifts = filterShiftsByLastMonth(shifts);
+        filteredShifts = filterByLastMonth(shifts);
+        filteredAbsences = filterByLastMonth(absences);
     }
-    renderShifts(filteredShifts); // Renderiza os turnos filtrados
+
+    renderShifts(filteredShifts);      // Renderiza os turnos filtrados
+    renderAbsences(filteredAbsences);  // Renderiza as ausências filtradas
 });
 
-// Renderiza todos os turnos inicialmente
-renderShifts(shifts);

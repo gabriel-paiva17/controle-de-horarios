@@ -428,7 +428,7 @@ submitAbsentButton.addEventListener('click', () => {
 
     let absence = {
         "id": crypto.randomUUID(),
-        "date": formatBrasiliaDateTime(new Date(inputAbsentDate.value)),
+        "startDate": formatBrasiliaDateTime(new Date(inputAbsentDate.value)),
         "file": fileContent,
     }
 
