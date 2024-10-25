@@ -289,6 +289,7 @@ async function startShiftCurrentTime () {
     currentShift.startDate = formatBrasiliaDateTime(new Date());
     currentShift.startLocation = await getCurrentCoordinates();
     currentShift.id = crypto.randomUUID();
+    currentShift.edited = false;
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
     
     startShiftStyles();
@@ -333,6 +334,7 @@ async function startShiftPreviousTime() {
 
     }
 
+    currentShift.edited = false;
     currentShift.id = crypto.randomUUID();
     currentShift.startedWithPreviousDate = true;
     localStorage.setItem('currentShift', JSON.stringify(currentShift));
@@ -430,6 +432,7 @@ submitAbsentButton.addEventListener('click', () => {
         "id": crypto.randomUUID(),
         "startDate": formatBrasiliaDateTime(new Date(inputAbsentDate.value)),
         "file": fileContent,
+        "edited": false,
     }
 
     saveAbsence(absence);
