@@ -145,6 +145,21 @@ const absences = JSON.parse(localStorage.getItem('absences')) || [];
 
 console.log(absences)
 
+// Função para converter Base64 em Blob
+function base64ToBlob(base64, mimeType) {
+    const byteCharacters = atob(base64.split(",")[1]); // Ignorar "data:image/png;base64,"
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: mimeType });
+}
+
+function getBase64MimeType(base64){
+    return base64.split(":")[1].split(";")[0]
+}
+
 function renderAbsences(filteredAbsences) {
     absenceReport.textContent = ""; // Limpar o conteúdo anterior
 
@@ -191,7 +206,7 @@ function renderAbsences(filteredAbsences) {
                 <p><strong>Data:</strong> ${absence.startDate}</p> 
                 <p><strong>Arquivo:</strong> ${
                     absence.file ? 
-                    `<a href="${URL.createObjectURL(new Blob([absence.file], { type: 'application/octet-stream' }))}" download="ausencia_${index + 1}_${absence.startDate.substring(0, 10)}.png">Baixar</a>` : 
+                    `<a href="${URL.createObjectURL(base64ToBlob(absence.file, getBase64MimeType(absence.file)))}" download="ausencia_${index + 1}_${absence.startDate.substring(0, 10)}.${getBase64MimeType(absence.file).split("/")[1]}">Baixar</a>` : 
                     'Não disponível'
                 }</p>
             `;
