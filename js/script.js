@@ -393,7 +393,7 @@ function readFileContent(file) {
         reader.onload = (event) => resolve(event.target.result);
         reader.onerror = (error) => reject(error);
 
-        reader.readAsText(file);
+        reader.readAsDataURL(file);
     });
 }
 
