@@ -99,7 +99,7 @@ function renderShifts(filteredShifts) {
             shiftItem.classList.add('shift-item');
 
             breakContent = `<p class="redText"><strong>Sem intervalos.</strong></p>`
-
+            
             if (shift.breaks && shift.breaks.length > 0) {
 
                 breakContent = `
@@ -125,7 +125,14 @@ function renderShifts(filteredShifts) {
                 <p><strong>Localização de início:</strong> ${shift.startLocation ? `Lat: ${shift.startLocation.latitude}, Lon: ${shift.startLocation.longitude}` : 'N/A'}</p>
                 <p><strong>Localização de fim:</strong> ${shift.endLocation ? `Lat: ${shift.endLocation.latitude}, Lon: ${shift.endLocation.longitude}` : 'N/A'}</p>
                 ${breakContent}
+                <button id="editButton-${index}" class="editButton">Editar</button>
             `;
+
+            const editButton = shiftItem.querySelector(`#editButton-${index}`);
+            editButton.addEventListener('click', () => {
+                openEditDialog(shift, index);
+            });
+
             shiftList.appendChild(shiftItem);
         });
 
@@ -134,6 +141,58 @@ function renderShifts(filteredShifts) {
         shiftReport.appendChild(dateContainer);
     });
 
+}
+
+function openEditDialog(shift, shiftIndex) {
+    let dialog = document.querySelector('#editDialog');
+    if (!dialog) {
+        dialog = document.createElement('dialog');
+        dialog.id = 'editDialog';
+        dialog.innerHTML = `
+            <form method="dialog">
+                <h2>Editar Turno</h2>
+                <label for="startDate">Início do turno:</label>
+                <input type="datetime-local" id="startDate" name="startDate" value="${shift.startDate}">
+                
+                <label for="endDate">Fim do turno:</label>
+                <input type="datetime-local" id="endDate" name="endDate" value="${shift.endDate}">
+
+                <button type="submit" id="saveButton">Salvar</button>
+                <button type="button" id="cancelButton">Cancelar</button>
+            </form>
+        `;
+        document.body.appendChild(dialog);
+
+        dialog.querySelector('#cancelButton').addEventListener('click', () => dialog.close());
+    }
+
+    const startDateInput = document.querySelector("#startDate");
+    const endDateInput = document.querySelector("#endDate");
+
+
+    dialog.querySelector('#saveButton').addEventListener('click', () => {
+        const newStartDate = formatBrasiliaDateTime(new Date(startDateInput.value));
+        const newEndDate = formatBrasiliaDateTime(new Date(endDateInput.value));
+
+        shift.startDate = newStartDate;
+        shift.endDate = newEndDate;
+        shift.edited = true;
+
+        // Atualiza o turno no localStorage
+        let shifts = JSON.parse(localStorage.getItem('shifts')) || [];
+        shifts[shiftIndex] = shift;
+        localStorage.setItem('shifts', JSON.stringify(shifts));
+
+        dialog.close();
+        renderShifts(shifts);
+    });
+
+    dialog.showModal();
+}
+
+function formatBrasiliaDateTime(date) {
+    const options = { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    return new Intl.DateTimeFormat('pt-BR', options).format(date);
 }
 
 // Renderiza todos os turnos inicialmente
