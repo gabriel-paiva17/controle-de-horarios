@@ -120,6 +120,7 @@ function renderShifts(filteredShifts) {
             shiftItem.innerHTML = `
                 <p class="list-index">${index + 1}</p>
                 ${shift.startedWithPreviousDate ? `<p class="redText"><strong>Esse turno foi inicializado com uma data anterior selecionada manualmente.</strong></p>` : ``}
+                ${shift.edited ? `<p class="redText"><strong>Esse turno foi editado.</strong></p>`: ``}
                 <p><strong>Início do turno:</strong> ${shift.startDate}</p>
                 <p><strong>Fim do turno:</strong> ${shift.endDate}</p>
                 <p><strong>Localização de início:</strong> ${shift.startLocation ? `Lat: ${shift.startLocation.latitude}, Lon: ${shift.startLocation.longitude}` : 'N/A'}</p>
