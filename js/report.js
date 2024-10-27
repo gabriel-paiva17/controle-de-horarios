@@ -126,12 +126,16 @@ function renderShifts(filteredShifts) {
                 <p><strong>Localização de fim:</strong> ${shift.endLocation ? `Lat: ${shift.endLocation.latitude}, Lon: ${shift.endLocation.longitude}` : 'N/A'}</p>
                 ${breakContent}
                 <button id="editButton-${index}" class="editButton">Editar</button>
+                <button id="deleteButton-${index}" class="deleteButton">Excluir</button>
             `;
-
+            const deleteButton = shiftItem.querySelector(`#deleteButton-${index}`);
             const editButton = shiftItem.querySelector(`#editButton-${index}`);
             editButton.addEventListener('click', () => {
                 openEditDialog(shift, index);
             });
+            deleteButton.addEventListener('click',() =>{
+                alert("O ponto não pode ser excluído");
+            })
 
             shiftList.appendChild(shiftItem);
         });
