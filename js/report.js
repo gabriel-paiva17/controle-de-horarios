@@ -126,13 +126,13 @@ function renderShifts(filteredShifts) {
                 <p><strong>Localização de início:</strong> ${shift.startLocation ? `Lat: ${shift.startLocation.latitude}, Lon: ${shift.startLocation.longitude}` : 'N/A'}</p>
                 <p><strong>Localização de fim:</strong> ${shift.endLocation ? `Lat: ${shift.endLocation.latitude}, Lon: ${shift.endLocation.longitude}` : 'N/A'}</p>
                 ${breakContent}
-                <button id="editButton-${index}" class="editButton">Editar</button>
-                <button id="deleteButton-${index}" class="deleteButton">Excluir</button>
+                <button id="editButton-${shift.id}" class="editButton">Editar</button>
+                <button id="deleteButton-${shift.id}" class="deleteButton">Excluir</button>
             `;
-            const deleteButton = shiftItem.querySelector(`#deleteButton-${index}`);
-            const editButton = shiftItem.querySelector(`#editButton-${index}`);
+            const deleteButton = shiftItem.querySelector(`#deleteButton-${shift.id}`);
+            const editButton = shiftItem.querySelector(`#editButton-${shift.id}`);
             editButton.addEventListener('click', () => {
-                openEditDialog(shift, index);
+                openEditDialog(shift);
             });
             deleteButton.addEventListener('click',() =>{
                 alert("O ponto não pode ser excluído");
@@ -176,6 +176,14 @@ function openEditDialog(shift) {
     const endDateInput = document.querySelector("#endDate");
 
     dialog.querySelector('#saveButton').addEventListener('click', () => {
+
+        if (new Date(startDateInput.value) > new Date(endDateInput.value)) {
+
+            alert("Data final deve ser depois da data inicial.")
+            return;
+
+        }
+
         const newStartDate = formatBrasiliaDateTime(new Date(startDateInput.value));
         const newEndDate = formatBrasiliaDateTime(new Date(endDateInput.value));
 
