@@ -195,6 +195,8 @@ function openEditDialog(shift) {
 
         dialog.close();
         applyCurrentFilterAndRender();
+        showSuccessAlert("Turno editado com sucesso!");
+
     });
 
     dialog.showModal();
@@ -315,3 +317,18 @@ selectPeriod.addEventListener('change', () => {
 });
 
 applyCurrentFilterAndRender();
+
+const successAlert = document.getElementById("successAlert");
+const successAlertText = document.getElementById("successAlertText");
+
+function showSuccessAlert(message) {
+
+    successAlertText.textContent = message;
+
+    successAlert.classList.remove("hidden");
+
+    setTimeout(() => {
+        successAlert.classList.add("hidden");
+    }, 5000);
+
+}

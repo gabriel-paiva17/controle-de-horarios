@@ -158,3 +158,22 @@ body {
 
 
 }
+
+#successAlert {
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 10px;
+    line-height: 1.8;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-weight: 400;
+    background-color: lightgreen;
+    border: 1px solid black;
+
+}
