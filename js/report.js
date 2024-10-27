@@ -148,7 +148,8 @@ function renderShifts(filteredShifts) {
 
 }
 
-function openEditDialog(shift, shiftIndex) {
+// Função para abrir o diálogo de edição, agora usando o ID do turno
+function openEditDialog(shift) {
     let dialog = document.querySelector('#editDialog');
     if (!dialog) {
         dialog = document.createElement('dialog');
@@ -174,22 +175,26 @@ function openEditDialog(shift, shiftIndex) {
     const startDateInput = document.querySelector("#startDate");
     const endDateInput = document.querySelector("#endDate");
 
-
     dialog.querySelector('#saveButton').addEventListener('click', () => {
         const newStartDate = formatBrasiliaDateTime(new Date(startDateInput.value));
         const newEndDate = formatBrasiliaDateTime(new Date(endDateInput.value));
 
+        // Atualize as propriedades do turno
         shift.startDate = newStartDate;
         shift.endDate = newEndDate;
         shift.edited = true;
 
-        // Atualiza o turno no localStorage
+        // Atualize o turno no localStorage usando o ID
         let shifts = JSON.parse(localStorage.getItem('shifts')) || [];
-        shifts[shiftIndex] = shift;
-        localStorage.setItem('shifts', JSON.stringify(shifts));
+        const index = shifts.findIndex(s => s.id === shift.id);
+        
+        if (index !== -1) {  // Se o turno com ID correspondente for encontrado
+            shifts[index] = shift;
+            localStorage.setItem('shifts', JSON.stringify(shifts));
+        }
 
         dialog.close();
-        renderShifts(shifts);
+        applyCurrentFilterAndRender();
     });
 
     dialog.showModal();
@@ -199,9 +204,6 @@ function formatBrasiliaDateTime(date) {
     const options = { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
     return new Intl.DateTimeFormat('pt-BR', options).format(date);
 }
-
-// Renderiza todos os turnos inicialmente
-renderShifts(shifts);
 
 // Elemento para o relatório de ausências
 const absenceReport = document.getElementById('absenceReport');
@@ -283,22 +285,33 @@ function renderAbsences(filteredAbsences) {
     });
 }
 
-renderAbsences(absences)
+let currentFilter = 'all'
 
-// Evento para filtrar ao selecionar o período
-selectPeriod.addEventListener('change', () => {
+function applyCurrentFilterAndRender() {
+
     let filteredShifts = shifts;
     let filteredAbsences = absences;
 
-    if (selectPeriod.value === 'week') {
+    if (currentFilter === 'week') {
         filteredShifts = filterByLastWeek(shifts);
         filteredAbsences = filterByLastWeek(absences);
-    } else if (selectPeriod.value === 'month') {
+    } else if (currentFilter === 'month') {
         filteredShifts = filterByLastMonth(shifts);
         filteredAbsences = filterByLastMonth(absences);
     }
 
     renderShifts(filteredShifts);      // Renderiza os turnos filtrados
     renderAbsences(filteredAbsences);  // Renderiza as ausências filtradas
+
+}
+
+// Evento para filtrar ao selecionar o período
+selectPeriod.addEventListener('change', () => {
+    
+    currentFilter = selectPeriod.value
+
+    applyCurrentFilterAndRender();
+
 });
 
+applyCurrentFilterAndRender();
