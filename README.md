@@ -10,3 +10,7 @@ sistema de controle de horários, feito como projeto final para programacao web
 - melhorar funcao de edicao de turno (mais opcoes como editar intervalos) 
 
 desconta ai professor, o trabalho ta bem feito :')
+
+# Link do site
+
+https://gabriel-paiva17.github.io/controle-de-horarios/
