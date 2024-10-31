@@ -472,6 +472,6 @@ const shiftRecordButton = document.getElementById("shiftRecordButton");
 
 shiftRecordButton.addEventListener('click',() => {
 
-    window.location.href = '../html/report.html'
+    window.location.href = 'https://gabriel-paiva17.github.io/controle-de-horarios/html/report.html'
 
 })
